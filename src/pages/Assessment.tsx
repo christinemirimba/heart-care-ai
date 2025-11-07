@@ -206,7 +206,8 @@ const Assessment = () => {
                     </div>
 
                     <Button type="submit" className="w-full" size="lg">
-                      Calculate AI Risk Score
+                      <span className="hidden sm:inline">Calculate AI Risk Score</span>
+                      <span className="sm:hidden">Calculate Risk Score</span>
                     </Button>
                   </form>
                 </CardContent>
