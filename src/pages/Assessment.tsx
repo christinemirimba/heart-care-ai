@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { Heart, User } from "lucide-react";
 
 const Assessment = () => {
@@ -246,6 +247,8 @@ const Assessment = () => {
           </div>
         </div>
       </div>
+      
+      <Footer />
     </div>
   );
 };

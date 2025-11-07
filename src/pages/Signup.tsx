@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
 
@@ -20,7 +21,7 @@ const Signup = () => {
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Implement authentication logic
-    navigate("/assessment");
+    navigate("/login");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,6 +120,8 @@ const Signup = () => {
           </CardContent>
         </Card>
       </div>
+      
+      <Footer />
     </div>
   );
 };
