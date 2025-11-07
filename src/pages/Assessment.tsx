@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Header } from "@/components/Header";
+import { AuthHeader } from "@/components/AuthHeader";
 import { Footer } from "@/components/Footer";
 import { Heart, User } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Assessment = () => {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, navigate]);
+
   const [formData, setFormData] = useState({
     age: "",
     sex: "",
@@ -36,9 +47,13 @@ const Assessment = () => {
     });
   };
 
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-muted/30">
-      <Header />
+      <AuthHeader />
       
       <div className="container py-8 flex-1">
         <div className="max-w-4xl mx-auto">
