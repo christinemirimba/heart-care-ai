@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthHeader } from "@/components/AuthHeader";
 import { Footer } from "@/components/Footer";
-import { Heart, User, Loader2 } from "lucide-react";
+import { Heart, Loader2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { cleanData, predictRisk } from "@/lib/predictRisk";
@@ -378,19 +378,6 @@ const Assessment = () => {
                 </Card>
               )}
 
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="flex items-start gap-3">
-                    <User className="h-5 w-5 text-primary mt-1" />
-                    <div>
-                      <p className="text-sm font-medium mb-1">Guest User</p>
-                      <p className="text-xs text-muted-foreground">
-                        Sign up to save your assessment history
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </div>

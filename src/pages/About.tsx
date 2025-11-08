@@ -74,16 +74,6 @@ const About = () => {
               </Card>
             </div>
 
-            <Card className="bg-primary/5 border-primary/20">
-              <CardContent className="p-8">
-                <h2 className="text-2xl font-bold mb-4">Market Opportunity</h2>
-                <div className="space-y-3 text-muted-foreground">
-                  <p>• Global Preventive Health Tech Market: <strong>$280B+</strong> (by 2030)</p>
-                  <p>• Cardiac Diagnostics AI Market: Growing at <strong>20% CAGR</strong></p>
-                  <p>• Target: Hospitals, Clinics, Wellness Platforms, and Individual Users</p>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </section>
       </div>
