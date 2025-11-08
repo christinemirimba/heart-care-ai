@@ -2,33 +2,19 @@ import { AuthHeader } from "@/components/AuthHeader";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, TrendingDown, TrendingUp } from "lucide-react";
+import { Calendar, TrendingDown, TrendingUp, AlertCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const History = () => {
-  // Mock data - will be replaced with real data from backend
-  const assessments = [
-    {
-      id: 1,
-      date: "2024-11-05",
-      riskLevel: "Low",
-      riskScore: 12,
-      trend: "down",
-    },
-    {
-      id: 2,
-      date: "2024-10-20",
-      riskLevel: "Moderate",
-      riskScore: 35,
-      trend: "up",
-    },
-    {
-      id: 3,
-      date: "2024-10-01",
-      riskLevel: "Low",
-      riskScore: 18,
-      trend: "down",
-    },
-  ];
+  const [assessments, setAssessments] = useState<any[]>([]);
+
+  useEffect(() => {
+    // Load history from localStorage
+    const history = localStorage.getItem("heartcare_history");
+    if (history) {
+      setAssessments(JSON.parse(history));
+    }
+  }, []);
 
   const getRiskColor = (level: string) => {
     switch (level) {
@@ -98,11 +84,14 @@ const History = () => {
             </div>
 
             {assessments.length === 0 && (
-              <Card>
+              <Card className="border-dashed">
                 <CardContent className="py-12 text-center">
-                  <p className="text-muted-foreground">No assessment history yet</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Complete your first assessment to start tracking your health
+                  <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-lg font-medium text-muted-foreground mb-2">
+                    No prediction history yet
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Complete an assessment to see your trends!
                   </p>
                 </CardContent>
               </Card>

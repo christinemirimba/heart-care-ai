@@ -73,14 +73,14 @@ const Contact = () => {
                     <Mail className="h-5 w-5 text-primary mt-1" />
                     <div>
                       <p className="font-medium mb-1">Email</p>
-                      <p className="text-sm text-muted-foreground">support@heartcareai.com</p>
+                      <p className="text-sm text-muted-foreground">mirimbachristine@gmail.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 mb-4">
                     <Phone className="h-5 w-5 text-primary mt-1" />
                     <div>
                       <p className="font-medium mb-1">Phone</p>
-                      <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
+                      <p className="text-sm text-muted-foreground">+254701609261</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -88,8 +88,8 @@ const Contact = () => {
                     <div>
                       <p className="font-medium mb-1">Address</p>
                       <p className="text-sm text-muted-foreground">
-                        123 Health Tech Plaza<br />
-                        San Francisco, CA 94105
+                        Rupa's Mall, Eldoret - Nakuru Rd<br />
+                        Eldoret
                       </p>
                     </div>
                   </div>
@@ -100,9 +100,7 @@ const Contact = () => {
                 <CardContent className="pt-6">
                   <h3 className="font-semibold mb-2">Business Hours</h3>
                   <div className="text-sm text-muted-foreground space-y-1">
-                    <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                    <p>Saturday: 10:00 AM - 4:00 PM</p>
-                    <p>Sunday: Closed</p>
+                    <p>Available 24/7</p>
                   </div>
                 </CardContent>
               </Card>

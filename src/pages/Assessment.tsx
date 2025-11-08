@@ -6,13 +6,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthHeader } from "@/components/AuthHeader";
 import { Footer } from "@/components/Footer";
-import { Heart, User } from "lucide-react";
+import { Heart, User, Loader2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { cleanData, predictRisk } from "@/lib/predictRisk";
+import { useToast } from "@/hooks/use-toast";
+import { Badge } from "@/components/ui/badge";
 
 const Assessment = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isCalculating, setIsCalculating] = useState(false);
+  const [result, setResult] = useState<any>(null);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -34,10 +40,71 @@ const Assessment = () => {
     stSlope: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement ML prediction logic
-    console.log("Assessment data:", formData);
+    
+    // Validate all fields are filled
+    const emptyFields = Object.entries(formData).filter(([_, value]) => !value);
+    if (emptyFields.length > 0) {
+      toast({
+        title: "Incomplete Form",
+        description: "Please fill in all fields before calculating risk.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsCalculating(true);
+    
+    // Simulate processing time for better UX
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    try {
+      // Step 1: Data Cleaning
+      const cleanedData = cleanData(formData);
+      
+      // Step 2: Risk Prediction
+      const prediction = predictRisk(cleanedData);
+      
+      setResult(prediction);
+      
+      // Step 3: Save to History (if authenticated)
+      if (isAuthenticated) {
+        const history = localStorage.getItem("heartcare_history");
+        const historyArray = history ? JSON.parse(history) : [];
+        
+        const newEntry = {
+          id: Date.now(),
+          date: new Date().toISOString(),
+          ...formData,
+          riskScore: prediction.riskScore,
+          riskLevel: prediction.riskLevel,
+          factors: prediction.factors,
+          trend: historyArray.length > 0 && prediction.riskScore < historyArray[0].riskScore ? "down" : "up",
+        };
+        
+        historyArray.unshift(newEntry);
+        localStorage.setItem("heartcare_history", JSON.stringify(historyArray));
+        
+        toast({
+          title: "Assessment Complete",
+          description: "Your risk score has been calculated and saved to your history.",
+        });
+      } else {
+        toast({
+          title: "Assessment Complete",
+          description: "Sign up to save your assessment history.",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to calculate risk score. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsCalculating(false);
+    }
   };
 
   const handleInputChange = (name: string, value: string) => {
@@ -220,9 +287,19 @@ const Assessment = () => {
                       </div>
                     </div>
 
-                    <Button type="submit" className="w-full" size="lg">
-                      <span className="hidden sm:inline">Calculate AI Risk Score</span>
-                      <span className="sm:hidden">Calculate Risk Score</span>
+                    <Button type="submit" className="w-full" size="lg" disabled={isCalculating}>
+                      {isCalculating ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          <span className="hidden sm:inline">Analyzing...</span>
+                          <span className="sm:hidden">Analyzing...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="hidden sm:inline">Calculate AI Risk Score</span>
+                          <span className="sm:hidden">Calculate Risk Score</span>
+                        </>
+                      )}
                     </Button>
                   </form>
                 </CardContent>
@@ -230,21 +307,76 @@ const Assessment = () => {
             </div>
 
             <div className="space-y-6">
-              <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
-                <CardContent className="pt-6">
-                  <div className="flex flex-col items-center text-center space-y-4">
-                    <div className="p-4 rounded-full bg-background">
-                      <Heart className="h-12 w-12 text-primary fill-primary animate-pulse" />
+              {result ? (
+                <Card className={`border-2 ${
+                  result.riskLevel === "Low" 
+                    ? "bg-green-500/5 border-green-500/30" 
+                    : result.riskLevel === "Moderate"
+                    ? "bg-yellow-500/5 border-yellow-500/30"
+                    : "bg-red-500/5 border-red-500/30"
+                }`}>
+                  <CardContent className="pt-6">
+                    <div className="flex flex-col items-center text-center space-y-4">
+                      <div className="p-4 rounded-full bg-background">
+                        <Heart className={`h-12 w-12 fill-current ${
+                          result.riskLevel === "Low" 
+                            ? "text-green-500" 
+                            : result.riskLevel === "Moderate"
+                            ? "text-yellow-500"
+                            : "text-red-500"
+                        }`} />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-2xl mb-2">
+                          {result.riskScore}%
+                        </h3>
+                        <Badge className={
+                          result.riskLevel === "Low" 
+                            ? "bg-green-500/10 text-green-500 hover:bg-green-500/20" 
+                            : result.riskLevel === "Moderate"
+                            ? "bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20"
+                            : "bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                        }>
+                          {result.riskLevel} Risk
+                        </Badge>
+                        <p className="text-sm text-muted-foreground mt-4">
+                          {result.riskLevel === "Low" 
+                            ? "Your cardiovascular risk is low. Keep up the healthy lifestyle!" 
+                            : result.riskLevel === "Moderate"
+                            ? "Your cardiovascular risk is moderate. Consider lifestyle changes and consult a healthcare provider."
+                            : "Your cardiovascular risk is high. Please consult a healthcare provider soon."}
+                        </p>
+                        {result.factors.length > 0 && (
+                          <div className="mt-4 text-left">
+                            <p className="text-sm font-medium mb-2">Key Risk Factors:</p>
+                            <ul className="text-xs text-muted-foreground space-y-1">
+                              {result.factors.map((factor: string, i: number) => (
+                                <li key={i}>• {factor}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-lg mb-2">Input your data and click 'Calculate'</h3>
-                      <p className="text-sm text-muted-foreground">
-                        to see your personalized AI prediction.
-                      </p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+                  <CardContent className="pt-6">
+                    <div className="flex flex-col items-center text-center space-y-4">
+                      <div className="p-4 rounded-full bg-background">
+                        <Heart className="h-12 w-12 text-primary fill-primary animate-pulse" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg mb-2">Input your data and click 'Calculate'</h3>
+                        <p className="text-sm text-muted-foreground">
+                          to see your personalized AI prediction.
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              )}
 
               <Card>
                 <CardContent className="pt-6">
