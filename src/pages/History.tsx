@@ -2,8 +2,11 @@ import { AuthHeader } from "@/components/AuthHeader";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, TrendingDown, TrendingUp, AlertCircle } from "lucide-react";
+import { Calendar, TrendingDown, TrendingUp, AlertCircle, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Button } from "@/components/ui/button";
+import ReactMarkdown from "react-markdown";
 
 const History = () => {
   const [assessments, setAssessments] = useState<any[]>([]);
@@ -62,7 +65,7 @@ const History = () => {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between mb-4">
                       <div className="space-y-1">
                         <p className="text-sm text-muted-foreground">Risk Score</p>
                         <p className="text-2xl font-bold">{assessment.riskScore}%</p>
@@ -78,6 +81,22 @@ const History = () => {
                         </span>
                       </div>
                     </div>
+
+                    {assessment.recommendations && (
+                      <Collapsible>
+                        <CollapsibleTrigger asChild>
+                          <Button variant="outline" size="sm" className="w-full">
+                            <Sparkles className="h-4 w-4 mr-2" />
+                            View AI Recommendations
+                          </Button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="mt-4">
+                          <div className="prose prose-sm max-w-none dark:prose-invert p-4 bg-muted/30 rounded-lg">
+                            <ReactMarkdown>{assessment.recommendations}</ReactMarkdown>
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+                    )}
                   </CardContent>
                 </Card>
               ))}

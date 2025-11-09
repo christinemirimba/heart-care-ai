@@ -6,12 +6,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthHeader } from "@/components/AuthHeader";
 import { Footer } from "@/components/Footer";
-import { Heart, Loader2 } from "lucide-react";
+import { Heart, Loader2, Sparkles } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { cleanData, predictRisk } from "@/lib/predictRisk";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
+import { supabase } from "@/integrations/supabase/client";
+import ReactMarkdown from "react-markdown";
 
 const Assessment = () => {
   const { isAuthenticated } = useAuth();
@@ -55,9 +57,6 @@ const Assessment = () => {
     }
 
     setIsCalculating(true);
-    
-    // Simulate processing time for better UX
-    await new Promise(resolve => setTimeout(resolve, 1500));
 
     try {
       // Step 1: Data Cleaning
@@ -66,9 +65,37 @@ const Assessment = () => {
       // Step 2: Risk Prediction
       const prediction = predictRisk(cleanedData);
       
-      setResult(prediction);
+      // Step 3: Generate AI Recommendations
+      toast({
+        title: "Generating Recommendations",
+        description: "AI is analyzing your health profile...",
+      });
+
+      const { data: recommendationsData, error: recommendationsError } = await supabase.functions.invoke(
+        'generate-health-recommendations',
+        {
+          body: {
+            healthData: cleanedData,
+            riskScore: prediction.riskScore,
+            riskLevel: prediction.riskLevel,
+            factors: prediction.factors,
+          }
+        }
+      );
+
+      if (recommendationsError) {
+        console.error("Recommendations error:", recommendationsError);
+        throw new Error("Failed to generate recommendations");
+      }
+
+      const fullResult = {
+        ...prediction,
+        recommendations: recommendationsData.recommendations,
+      };
+
+      setResult(fullResult);
       
-      // Step 3: Save to History (if authenticated)
+      // Step 4: Save to History ONLY after complete assessment with recommendations
       if (isAuthenticated) {
         const history = localStorage.getItem("heartcare_history");
         const historyArray = history ? JSON.parse(history) : [];
@@ -80,6 +107,7 @@ const Assessment = () => {
           riskScore: prediction.riskScore,
           riskLevel: prediction.riskLevel,
           factors: prediction.factors,
+          recommendations: recommendationsData.recommendations,
           trend: historyArray.length > 0 && prediction.riskScore < historyArray[0].riskScore ? "down" : "up",
         };
         
@@ -88,18 +116,14 @@ const Assessment = () => {
         
         toast({
           title: "Assessment Complete",
-          description: "Your risk score has been calculated and saved to your history.",
-        });
-      } else {
-        toast({
-          title: "Assessment Complete",
-          description: "Sign up to save your assessment history.",
+          description: "Your personalized recommendations are ready!",
         });
       }
     } catch (error) {
+      console.error("Assessment error:", error);
       toast({
         title: "Error",
-        description: "Failed to calculate risk score. Please try again.",
+        description: "Failed to complete assessment. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -308,58 +332,79 @@ const Assessment = () => {
 
             <div className="space-y-6">
               {result ? (
-                <Card className={`border-2 ${
-                  result.riskLevel === "Low" 
-                    ? "bg-green-500/5 border-green-500/30" 
-                    : result.riskLevel === "Moderate"
-                    ? "bg-yellow-500/5 border-yellow-500/30"
-                    : "bg-red-500/5 border-red-500/30"
-                }`}>
-                  <CardContent className="pt-6">
-                    <div className="flex flex-col items-center text-center space-y-4">
-                      <div className="p-4 rounded-full bg-background">
-                        <Heart className={`h-12 w-12 fill-current ${
-                          result.riskLevel === "Low" 
-                            ? "text-green-500" 
-                            : result.riskLevel === "Moderate"
-                            ? "text-yellow-500"
-                            : "text-red-500"
-                        }`} />
+                <>
+                  <Card className={`border-2 ${
+                    result.riskLevel === "Low" 
+                      ? "bg-green-500/5 border-green-500/30" 
+                      : result.riskLevel === "Moderate"
+                      ? "bg-yellow-500/5 border-yellow-500/30"
+                      : "bg-red-500/5 border-red-500/30"
+                  }`}>
+                    <CardContent className="pt-6">
+                      <div className="flex flex-col items-center text-center space-y-4">
+                        <div className="p-4 rounded-full bg-background">
+                          <Heart className={`h-12 w-12 fill-current ${
+                            result.riskLevel === "Low" 
+                              ? "text-green-500" 
+                              : result.riskLevel === "Moderate"
+                              ? "text-yellow-500"
+                              : "text-red-500"
+                          }`} />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-2xl mb-2">
+                            {result.riskScore}%
+                          </h3>
+                          <Badge className={
+                            result.riskLevel === "Low" 
+                              ? "bg-green-500/10 text-green-500 hover:bg-green-500/20" 
+                              : result.riskLevel === "Moderate"
+                              ? "bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20"
+                              : "bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                          }>
+                            {result.riskLevel} Risk
+                          </Badge>
+                          <p className="text-sm text-muted-foreground mt-4">
+                            {result.riskLevel === "Low" 
+                              ? "Your cardiovascular risk is low. Keep up the healthy lifestyle!" 
+                              : result.riskLevel === "Moderate"
+                              ? "Your cardiovascular risk is moderate. Consider lifestyle changes and consult a healthcare provider."
+                              : "Your cardiovascular risk is high. Please consult a healthcare provider soon."}
+                          </p>
+                          {result.factors.length > 0 && (
+                            <div className="mt-4 text-left">
+                              <p className="text-sm font-medium mb-2">Key Risk Factors:</p>
+                              <ul className="text-xs text-muted-foreground space-y-1">
+                                {result.factors.map((factor: string, i: number) => (
+                                  <li key={i}>• {factor}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-bold text-2xl mb-2">
-                          {result.riskScore}%
-                        </h3>
-                        <Badge className={
-                          result.riskLevel === "Low" 
-                            ? "bg-green-500/10 text-green-500 hover:bg-green-500/20" 
-                            : result.riskLevel === "Moderate"
-                            ? "bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20"
-                            : "bg-red-500/10 text-red-500 hover:bg-red-500/20"
-                        }>
-                          {result.riskLevel} Risk
-                        </Badge>
-                        <p className="text-sm text-muted-foreground mt-4">
-                          {result.riskLevel === "Low" 
-                            ? "Your cardiovascular risk is low. Keep up the healthy lifestyle!" 
-                            : result.riskLevel === "Moderate"
-                            ? "Your cardiovascular risk is moderate. Consider lifestyle changes and consult a healthcare provider."
-                            : "Your cardiovascular risk is high. Please consult a healthcare provider soon."}
-                        </p>
-                        {result.factors.length > 0 && (
-                          <div className="mt-4 text-left">
-                            <p className="text-sm font-medium mb-2">Key Risk Factors:</p>
-                            <ul className="text-xs text-muted-foreground space-y-1">
-                              {result.factors.map((factor: string, i: number) => (
-                                <li key={i}>• {factor}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+
+                  {result.recommendations && (
+                    <Card className="border-primary/20">
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Sparkles className="h-5 w-5 text-primary" />
+                          AI Recommendations
+                        </CardTitle>
+                        <CardDescription>
+                          Personalized guidance based on your health profile
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="prose prose-sm max-w-none dark:prose-invert">
+                          <ReactMarkdown>{result.recommendations}</ReactMarkdown>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                </>
               ) : (
                 <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
                   <CardContent className="pt-6">
@@ -368,9 +413,9 @@ const Assessment = () => {
                         <Heart className="h-12 w-12 text-primary fill-primary animate-pulse" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-lg mb-2">Input your data and click 'Calculate'</h3>
+                        <h3 className="font-semibold text-lg mb-2">Ready for your assessment</h3>
                         <p className="text-sm text-muted-foreground">
-                          to see your personalized AI prediction.
+                          Complete the form to receive your risk score and personalized AI recommendations
                         </p>
                       </div>
                     </div>
