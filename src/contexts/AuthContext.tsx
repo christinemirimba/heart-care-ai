@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { User as SupabaseUser, Session } from "@supabase/supabase-js";
 
 interface User {
   id: string;
@@ -19,41 +21,83 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        setSession(session);
+        if (session?.user) {
+          // Fetch user profile
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('username')
+            .eq('user_id', session.user.id)
+            .single();
+          
+          setUser({
+            id: session.user.id,
+            email: session.user.email || '',
+            username: profile?.username || session.user.email?.split('@')[0] || 'User',
+          });
+        } else {
+          setUser(null);
+        }
+      }
+    );
+
     // Check for existing session
-    const storedUser = localStorage.getItem("heartcare_user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      if (session?.user) {
+        supabase
+          .from('profiles')
+          .select('username')
+          .eq('user_id', session.user.id)
+          .single()
+          .then(({ data: profile }) => {
+            setUser({
+              id: session.user.id,
+              email: session.user.email || '',
+              username: profile?.username || session.user.email?.split('@')[0] || 'User',
+            });
+          });
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const login = async (email: string, password: string) => {
-    // Temporary mock authentication - will be replaced with real auth
-    const mockUser = {
-      id: "1",
+    const { error } = await supabase.auth.signInWithPassword({
       email,
-      username: email.split("@")[0],
-    };
-    setUser(mockUser);
-    localStorage.setItem("heartcare_user", JSON.stringify(mockUser));
+      password,
+    });
+    
+    if (error) throw error;
   };
 
   const signup = async (email: string, password: string, username: string) => {
-    // Temporary mock signup - will be replaced with real auth
-    const mockUser = {
-      id: Date.now().toString(),
+    const { error } = await supabase.auth.signUp({
       email,
-      username,
-    };
-    setUser(mockUser);
-    localStorage.setItem("heartcare_user", JSON.stringify(mockUser));
+      password,
+      options: {
+        data: {
+          username,
+        },
+        emailRedirectTo: `${window.location.origin}/`,
+      },
+    });
+    
+    if (error) throw error;
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await supabase.auth.signOut();
     setUser(null);
-    localStorage.removeItem("heartcare_user");
+    setSession(null);
     navigate("/");
   };
 
