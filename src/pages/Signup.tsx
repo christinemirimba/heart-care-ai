@@ -46,13 +46,18 @@ const Signup = () => {
       const errorMessage = error?.message || "Please try again.";
       const isUserExists = errorMessage.toLowerCase().includes("already registered") || 
                           errorMessage.toLowerCase().includes("already exists");
-      
+      if (isUserExists) {
+        toast({
+          title: "Account already exists",
+          description: "We've redirected you to log in.",
+        });
+        navigate("/login", { replace: true, state: { email: formData.email } });
+        return;
+      }
       toast({
         variant: "destructive",
-        title: isUserExists ? "Account already exists" : "Signup failed",
-        description: isUserExists 
-          ? "This email is already registered. Please log in instead." 
-          : errorMessage,
+        title: "Signup failed",
+        description: errorMessage,
       });
     }
   };

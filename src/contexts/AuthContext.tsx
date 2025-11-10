@@ -26,44 +26,63 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setSession(session);
-        if (session?.user) {
-          // Fetch user profile
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
+      if (session?.user) {
+        const basicUsername = session.user.email?.split('@')[0] || 'User';
+        setUser({ id: session.user.id, email: session.user.email || '', username: basicUsername });
+        // Defer Supabase calls to avoid deadlocks
+        setTimeout(async () => {
           const { data: profile } = await supabase
             .from('profiles')
             .select('username')
             .eq('user_id', session.user.id)
-            .single();
-          
+            .maybeSingle();
+
+          if (!profile) {
+            // Create profile if it doesn't exist yet
+            await supabase.from('profiles').insert({
+              user_id: session.user.id,
+              username: basicUsername,
+              email: session.user.email || '',
+            });
+          }
+
           setUser({
             id: session.user.id,
             email: session.user.email || '',
-            username: profile?.username || session.user.email?.split('@')[0] || 'User',
+            username: (profile?.username ?? basicUsername),
           });
-        } else {
-          setUser(null);
-        }
+        }, 0);
+      } else {
+        setUser(null);
       }
-    );
+    });
 
     // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       if (session?.user) {
-        supabase
+        const basicUsername = session.user.email?.split('@')[0] || 'User';
+        const { data: profile } = await supabase
           .from('profiles')
           .select('username')
           .eq('user_id', session.user.id)
-          .single()
-          .then(({ data: profile }) => {
-            setUser({
-              id: session.user.id,
-              email: session.user.email || '',
-              username: profile?.username || session.user.email?.split('@')[0] || 'User',
-            });
+          .maybeSingle();
+
+        if (!profile) {
+          await supabase.from('profiles').insert({
+            user_id: session.user.id,
+            username: basicUsername,
+            email: session.user.email || '',
           });
+        }
+
+        setUser({
+          id: session.user.id,
+          email: session.user.email || '',
+          username: (profile?.username ?? basicUsername),
+        });
       }
     });
 
