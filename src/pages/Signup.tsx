@@ -39,14 +39,20 @@ const Signup = () => {
       await signup(formData.email, formData.password, username);
       toast({
         title: "Account created!",
-        description: "Please log in with your new credentials.",
+        description: "You can now log in with your credentials.",
       });
       navigate("/login");
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage = error?.message || "Please try again.";
+      const isUserExists = errorMessage.toLowerCase().includes("already registered") || 
+                          errorMessage.toLowerCase().includes("already exists");
+      
       toast({
         variant: "destructive",
-        title: "Signup failed",
-        description: "Please try again.",
+        title: isUserExists ? "Account already exists" : "Signup failed",
+        description: isUserExists 
+          ? "This email is already registered. Please log in instead." 
+          : errorMessage,
       });
     }
   };

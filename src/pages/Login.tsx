@@ -26,11 +26,17 @@ const Login = () => {
         description: "You have successfully logged in.",
       });
       navigate("/assessment");
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage = error?.message || "Please check your credentials and try again.";
+      const isInvalidCredentials = errorMessage.toLowerCase().includes("invalid") || 
+                                   errorMessage.toLowerCase().includes("credentials");
+      
       toast({
         variant: "destructive",
         title: "Login failed",
-        description: "Please check your credentials and try again.",
+        description: isInvalidCredentials 
+          ? "Invalid email or password. Please try again." 
+          : errorMessage,
       });
     }
   };
