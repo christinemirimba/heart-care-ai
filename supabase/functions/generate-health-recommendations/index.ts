@@ -64,7 +64,6 @@ Keep each recommendation concrete and actionable. Base advice on established med
           },
           { role: "user", content: prompt }
         ],
-        temperature: 0.7,
       }),
     });
 
