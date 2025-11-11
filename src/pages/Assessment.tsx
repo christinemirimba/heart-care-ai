@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AuthHeader } from "@/components/AuthHeader";
 import { Footer } from "@/components/Footer";
 import { Heart, Loader2, Sparkles } from "lucide-react";
@@ -21,6 +22,7 @@ const Assessment = () => {
   const { toast } = useToast();
   const [isCalculating, setIsCalculating] = useState(false);
   const [result, setResult] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState("assessment");
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -95,6 +97,9 @@ const Assessment = () => {
 
       setResult(fullResult);
       
+      // Switch to recommendations tab
+      setActiveTab("recommendations");
+      
       // Step 4: Save to History ONLY after complete assessment with recommendations
       if (isAuthenticated) {
         const history = localStorage.getItem("heartcare_history");
@@ -155,8 +160,17 @@ const Assessment = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="md:col-span-2">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-6">
+              <TabsTrigger value="assessment">Health Assessment</TabsTrigger>
+              <TabsTrigger value="recommendations" disabled={!result}>
+                AI Recommendations
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="assessment">
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="md:col-span-2">
               <Card>
                 <CardHeader>
                   <CardTitle>Health Parameters</CardTitle>
@@ -385,25 +399,6 @@ const Assessment = () => {
                       </div>
                     </CardContent>
                   </Card>
-
-                  {result.recommendations && (
-                    <Card className="border-primary/20">
-                      <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                          <Sparkles className="h-5 w-5 text-primary" />
-                          AI Recommendations
-                        </CardTitle>
-                        <CardDescription>
-                          Personalized guidance based on your health profile
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="prose prose-sm max-w-none dark:prose-invert">
-                          <ReactMarkdown>{result.recommendations}</ReactMarkdown>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )}
                 </>
               ) : (
                 <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
@@ -425,6 +420,68 @@ const Assessment = () => {
 
             </div>
           </div>
+        </TabsContent>
+
+        <TabsContent value="recommendations">
+          {result && result.recommendations ? (
+            <Card className="border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                  AI Recommendations
+                </CardTitle>
+                <CardDescription>
+                  Personalized guidance based on your health profile
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-6 p-4 bg-muted/30 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="space-y-1">
+                      <p className="text-sm text-muted-foreground">Risk Score</p>
+                      <p className="text-2xl font-bold">{result.riskScore}%</p>
+                    </div>
+                    <Badge className={
+                      result.riskLevel === "Low" 
+                        ? "bg-green-500/10 text-green-500 hover:bg-green-500/20" 
+                        : result.riskLevel === "Moderate"
+                        ? "bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20"
+                        : "bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                    }>
+                      {result.riskLevel} Risk
+                    </Badge>
+                  </div>
+                  {result.factors.length > 0 && (
+                    <div className="mt-4">
+                      <p className="text-sm font-medium mb-2">Key Risk Factors:</p>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        {result.factors.map((factor: string, i: number) => (
+                          <li key={i}>• {factor}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+                <div className="prose prose-sm max-w-none dark:prose-invert">
+                  <ReactMarkdown>{result.recommendations}</ReactMarkdown>
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card className="border-dashed">
+              <CardContent className="py-12 text-center">
+                <Sparkles className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <p className="text-lg font-medium text-muted-foreground mb-2">
+                  No recommendations yet
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Complete an assessment to receive personalized AI recommendations
+                </p>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+      </Tabs>
         </div>
       </div>
       
