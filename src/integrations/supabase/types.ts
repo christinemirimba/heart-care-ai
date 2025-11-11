@@ -14,6 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
+      assessments: {
+        Row: {
+          age: number
+          chest_pain_type: string
+          cholesterol: number
+          created_at: string
+          exercise_angina: string
+          factors: string[]
+          fasting_bs: number
+          id: string
+          max_hr: number
+          oldpeak: number
+          recommendations: string
+          resting_bp: number
+          resting_ecg: string
+          risk_level: string
+          risk_score: number
+          sex: string
+          st_slope: string
+          user_id: string
+        }
+        Insert: {
+          age: number
+          chest_pain_type: string
+          cholesterol: number
+          created_at?: string
+          exercise_angina: string
+          factors: string[]
+          fasting_bs: number
+          id?: string
+          max_hr: number
+          oldpeak: number
+          recommendations: string
+          resting_bp: number
+          resting_ecg: string
+          risk_level: string
+          risk_score: number
+          sex: string
+          st_slope: string
+          user_id: string
+        }
+        Update: {
+          age?: number
+          chest_pain_type?: string
+          cholesterol?: number
+          created_at?: string
+          exercise_angina?: string
+          factors?: string[]
+          fasting_bs?: number
+          id?: string
+          max_hr?: number
+          oldpeak?: number
+          recommendations?: string
+          resting_bp?: number
+          resting_ecg?: string
+          risk_level?: string
+          risk_score?: number
+          sex?: string
+          st_slope?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string

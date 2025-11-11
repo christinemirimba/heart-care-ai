@@ -7,16 +7,63 @@ import { useState, useEffect } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
+import { supabase } from "@/integrations/supabase/client";
 
 const History = () => {
   const [assessments, setAssessments] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load history from localStorage
-    const history = localStorage.getItem("heartcare_history");
-    if (history) {
-      setAssessments(JSON.parse(history));
-    }
+    const loadAssessments = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        const { data, error } = await supabase
+          .from('assessments')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error("Error loading assessments:", error);
+        } else if (data) {
+          // Transform database format to component format
+          const transformedData = data.map((assessment) => ({
+            id: assessment.id,
+            date: assessment.created_at,
+            age: assessment.age.toString(),
+            sex: assessment.sex,
+            chestPainType: assessment.chest_pain_type,
+            restingBP: assessment.resting_bp.toString(),
+            cholesterol: assessment.cholesterol.toString(),
+            fastingBS: assessment.fasting_bs.toString(),
+            restingECG: assessment.resting_ecg,
+            maxHR: assessment.max_hr.toString(),
+            exerciseAngina: assessment.exercise_angina,
+            oldpeak: assessment.oldpeak.toString(),
+            stSlope: assessment.st_slope,
+            riskScore: assessment.risk_score,
+            riskLevel: assessment.risk_level,
+            factors: assessment.factors,
+            recommendations: assessment.recommendations,
+            trend: "up", // Default trend
+          }));
+
+          // Calculate trends based on previous assessment
+          for (let i = 0; i < transformedData.length; i++) {
+            if (i < transformedData.length - 1) {
+              transformedData[i].trend = 
+                transformedData[i].riskScore < transformedData[i + 1].riskScore ? "down" : "up";
+            }
+          }
+
+          setAssessments(transformedData);
+        }
+      }
+      setIsLoading(false);
+    };
+
+    loadAssessments();
   }, []);
 
   const getRiskColor = (level: string) => {
@@ -102,19 +149,30 @@ const History = () => {
               ))}
             </div>
 
-            {assessments.length === 0 && (
+            {isLoading ? (
+              <Card>
+                <CardContent className="py-12 text-center">
+                  <div className="flex justify-center items-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-4">
+                    Loading your assessment history...
+                  </p>
+                </CardContent>
+              </Card>
+            ) : assessments.length === 0 ? (
               <Card className="border-dashed">
                 <CardContent className="py-12 text-center">
                   <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <p className="text-lg font-medium text-muted-foreground mb-2">
-                    No prediction history yet
+                    No assessment history yet
                   </p>
                   <p className="text-sm text-muted-foreground">
                     Complete an assessment to see your trends!
                   </p>
                 </CardContent>
               </Card>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

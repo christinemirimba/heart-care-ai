@@ -100,29 +100,44 @@ const Assessment = () => {
       // Switch to recommendations tab
       setActiveTab("recommendations");
       
-      // Step 4: Save to History ONLY after complete assessment with recommendations
-      if (isAuthenticated) {
-        const history = localStorage.getItem("heartcare_history");
-        const historyArray = history ? JSON.parse(history) : [];
-        
-        const newEntry = {
-          id: Date.now(),
-          date: new Date().toISOString(),
-          ...formData,
-          riskScore: prediction.riskScore,
-          riskLevel: prediction.riskLevel,
-          factors: prediction.factors,
-          recommendations: recommendationsData.recommendations,
-          trend: historyArray.length > 0 && prediction.riskScore < historyArray[0].riskScore ? "down" : "up",
-        };
-        
-        historyArray.unshift(newEntry);
-        localStorage.setItem("heartcare_history", JSON.stringify(historyArray));
-        
-        toast({
-          title: "Assessment Complete",
-          description: "Your personalized recommendations are ready!",
-        });
+      // Step 4: Save to Database ONLY after complete assessment with recommendations
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        const { error: insertError } = await supabase
+          .from('assessments')
+          .insert({
+            user_id: user.id,
+            age: parseInt(formData.age),
+            sex: formData.sex,
+            chest_pain_type: formData.chestPainType,
+            resting_bp: parseInt(formData.restingBP),
+            cholesterol: parseInt(formData.cholesterol),
+            fasting_bs: parseInt(formData.fastingBS),
+            resting_ecg: formData.restingECG,
+            max_hr: parseInt(formData.maxHR),
+            exercise_angina: formData.exerciseAngina,
+            oldpeak: parseFloat(formData.oldpeak),
+            st_slope: formData.stSlope,
+            risk_score: prediction.riskScore,
+            risk_level: prediction.riskLevel,
+            factors: prediction.factors,
+            recommendations: recommendationsData.recommendations,
+          });
+
+        if (insertError) {
+          console.error("Error saving assessment:", insertError);
+          toast({
+            title: "Warning",
+            description: "Assessment complete but history not saved.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Assessment Complete",
+            description: "Your personalized recommendations are ready!",
+          });
+        }
       }
     } catch (error) {
       console.error("Assessment error:", error);
