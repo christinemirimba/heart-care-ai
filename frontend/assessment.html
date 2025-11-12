@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment - HeartCareAI</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/assessment.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💚</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="heart-icon">💚</span>
+                <span class="logo-text">Heart<span class="logo-highlight">CareAI</span></span>
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="how-it-works.html" class="nav-link">How It Works</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div class="nav-actions"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="assessment-container">
+        <div class="container">
+            <div class="assessment-header">
+                <h1>Heart Health Risk Assessment</h1>
+                <p>Complete this comprehensive evaluation to receive your personalized cardiovascular risk analysis</p>
+            </div>
+
+            <form id="assessmentForm" class="assessment-form">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h2 class="section-title">Personal Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="age">Age *</label>
+                            <input type="number" id="age" name="age" required min="18" max="120" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender *</label>
+                            <select id="gender" name="gender" required class="form-input">
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vital Signs -->
+                <div class="form-section">
+                    <h2 class="section-title">Vital Signs</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="restingBP">Resting Blood Pressure (mm Hg) *</label>
+                            <input type="number" id="restingBP" name="restingBP" required min="80" max="200" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="cholesterol">Cholesterol (mg/dL) *</label>
+                            <input type="number" id="cholesterol" name="cholesterol" required min="100" max="400" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="fastingBS">Fasting Blood Sugar (mg/dL) *</label>
+                            <input type="number" id="fastingBS" name="fastingBS" required min="70" max="300" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxHR">Maximum Heart Rate *</label>
+                            <input type="number" id="maxHR" name="maxHR" required min="60" max="220" class="form-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical History -->
+                <div class="form-section">
+                    <h2 class="section-title">Medical History</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="chestPain">Chest Pain Type *</label>
+                            <select id="chestPain" name="chestPain" required class="form-input">
+                                <option value="">Select type</option>
+                                <option value="typical">Typical Angina</option>
+                                <option value="atypical">Atypical Angina</option>
+                                <option value="non-anginal">Non-Anginal Pain</option>
+                                <option value="asymptomatic">Asymptomatic</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="restingECG">Resting ECG *</label>
+                            <select id="restingECG" name="restingECG" required class="form-input">
+                                <option value="">Select result</option>
+                                <option value="normal">Normal</option>
+                                <option value="st-t-abnormal">ST-T Wave Abnormality</option>
+                                <option value="lv-hypertrophy">Left Ventricular Hypertrophy</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="exerciseAngina" name="exerciseAngina">
+                            <span>Exercise Induced Angina</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Lifestyle Factors -->
+                <div class="form-section">
+                    <h2 class="section-title">Lifestyle Factors</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="smoking">Smoking Status *</label>
+                            <select id="smoking" name="smoking" required class="form-input">
+                                <option value="">Select status</option>
+                                <option value="never">Never Smoked</option>
+                                <option value="former">Former Smoker</option>
+                                <option value="current">Current Smoker</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exercise">Exercise Frequency *</label>
+                            <select id="exercise" name="exercise" required class="form-input">
+                                <option value="">Select frequency</option>
+                                <option value="none">None</option>
+                                <option value="1-2">1-2 times/week</option>
+                                <option value="3-4">3-4 times/week</option>
+                                <option value="5+">5+ times/week</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                        Analyze Risk
+                    </button>
+                    <button type="button" class="btn btn-ghost btn-lg" onclick="history.back()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+
+            <!-- Results Section (Initially Hidden) -->
+            <div id="resultsSection" class="results-section" style="display: none;">
+                <div class="results-card">
+                    <h2>Your Risk Assessment Results</h2>
+                    <div class="risk-score">
+                        <div class="risk-score-circle" id="riskScoreCircle">
+                            <span class="risk-percentage" id="riskPercentage">0%</span>
+                        </div>
+                        <p class="risk-level" id="riskLevel">Calculating...</p>
+                    </div>
+                    <div class="results-details" id="resultsDetails"></div>
+                    <div class="results-actions">
+                        <a href="recommendations.html" class="btn btn-primary" id="viewRecommendationsBtn">
+                            View Recommendations
+                        </a>
+                        <a href="history.html" class="btn btn-secondary">
+                            View History
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/assessment.js"></script>
+</body>
+</html>

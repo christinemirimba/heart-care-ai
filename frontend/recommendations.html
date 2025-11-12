@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Recommendations - HeartCareAI</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/recommendations.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💚</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="heart-icon">💚</span>
+                <span class="logo-text">Heart<span class="logo-highlight">CareAI</span></span>
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="how-it-works.html" class="nav-link">How It Works</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div class="nav-actions"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="recommendations-container">
+        <div class="container">
+            <div class="recommendations-header">
+                <h1>Your Personalized Recommendations</h1>
+                <p>AI-powered insights tailored to your unique cardiovascular health profile</p>
+            </div>
+
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p>Generating your personalized recommendations...</p>
+            </div>
+
+            <div id="recommendationsContent" style="display: none;">
+                <!-- Risk Summary -->
+                <div class="risk-summary-card">
+                    <div class="risk-summary-header">
+                        <h2>Risk Summary</h2>
+                        <span class="risk-badge" id="riskBadge">Low Risk</span>
+                    </div>
+                    <p id="riskSummary">Loading...</p>
+                </div>
+
+                <!-- Recommendations Categories -->
+                <div class="recommendations-grid">
+                    <!-- Lifestyle -->
+                    <div class="recommendation-category">
+                        <div class="category-header">
+                            <span class="category-icon">🏃</span>
+                            <h3>Lifestyle Modifications</h3>
+                        </div>
+                        <div class="recommendations-list" id="lifestyleRecommendations">
+                            <div class="recommendation-item">
+                                <div class="recommendation-priority high">High Priority</div>
+                                <p>Loading recommendations...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nutrition -->
+                    <div class="recommendation-category">
+                        <div class="category-header">
+                            <span class="category-icon">🥗</span>
+                            <h3>Nutrition & Diet</h3>
+                        </div>
+                        <div class="recommendations-list" id="nutritionRecommendations">
+                            <div class="recommendation-item">
+                                <div class="recommendation-priority medium">Medium Priority</div>
+                                <p>Loading recommendations...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercise -->
+                    <div class="recommendation-category">
+                        <div class="category-header">
+                            <span class="category-icon">💪</span>
+                            <h3>Physical Activity</h3>
+                        </div>
+                        <div class="recommendations-list" id="exerciseRecommendations">
+                            <div class="recommendation-item">
+                                <p>Loading recommendations...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medical -->
+                    <div class="recommendation-category">
+                        <div class="category-header">
+                            <span class="category-icon">🏥</span>
+                            <h3>Medical Follow-up</h3>
+                        </div>
+                        <div class="recommendations-list" id="medicalRecommendations">
+                            <div class="recommendation-item">
+                                <p>Loading recommendations...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Plan -->
+                <div class="action-plan-card">
+                    <h2>30-Day Action Plan</h2>
+                    <div class="timeline" id="actionPlan">
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>Week 1</h4>
+                                <p>Loading action plan...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="recommendations-actions">
+                    <button class="btn btn-primary" onclick="window.print()">Download PDF</button>
+                    <a href="assessment.html" class="btn btn-secondary">New Assessment</a>
+                    <a href="history.html" class="btn btn-ghost">View History</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/recommendations.js"></script>
+</body>
+</html>

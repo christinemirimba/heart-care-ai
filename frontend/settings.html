@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - HeartCareAI</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💚</text></svg>">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="heart-icon">💚</span>
+                <span class="logo-text">Heart<span class="logo-highlight">CareAI</span></span>
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="how-it-works.html" class="nav-link">How It Works</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div class="nav-actions"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="settings-container">
+        <div class="container">
+            <div class="settings-header">
+                <h1>Settings</h1>
+                <p>Manage your account and preferences</p>
+            </div>
+
+            <div class="settings-content">
+                <div class="settings-sidebar">
+                    <button class="settings-tab active" data-tab="profile">
+                        <span class="tab-icon">👤</span>
+                        Profile
+                    </button>
+                    <button class="settings-tab" data-tab="security">
+                        <span class="tab-icon">🔒</span>
+                        Security
+                    </button>
+                    <button class="settings-tab" data-tab="notifications">
+                        <span class="tab-icon">🔔</span>
+                        Notifications
+                    </button>
+                    <button class="settings-tab" data-tab="preferences">
+                        <span class="tab-icon">⚙️</span>
+                        Preferences
+                    </button>
+                    <button class="settings-tab" data-tab="privacy">
+                        <span class="tab-icon">🛡️</span>
+                        Privacy
+                    </button>
+                </div>
+
+                <div class="settings-panels">
+                    <!-- Profile Tab -->
+                    <div class="settings-panel active" id="profile">
+                        <h2>Profile Information</h2>
+                        <form id="profileForm" class="settings-form">
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" class="form-input" placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-input" placeholder="john@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="form-input" placeholder="+1 (555) 123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label for="dateOfBirth">Date of Birth</label>
+                                <input type="date" id="dateOfBirth" class="form-input">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <!-- Security Tab -->
+                    <div class="settings-panel" id="security">
+                        <h2>Security Settings</h2>
+                        <form id="passwordForm" class="settings-form">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword" class="form-input" minlength="8">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmNewPassword">Confirm New Password</label>
+                                <input type="password" id="confirmNewPassword" class="form-input">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </form>
+
+                        <div class="security-section">
+                            <h3>Two-Factor Authentication</h3>
+                            <p>Add an extra layer of security to your account</p>
+                            <button class="btn btn-secondary">Enable 2FA</button>
+                        </div>
+
+                        <div class="security-section">
+                            <h3>Active Sessions</h3>
+                            <p>Manage devices where you're currently logged in</p>
+                            <button class="btn btn-ghost">View Sessions</button>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Tab -->
+                    <div class="settings-panel" id="notifications">
+                        <h2>Notification Preferences</h2>
+                        <div class="settings-form">
+                            <div class="toggle-group">
+                                <div class="toggle-item">
+                                    <div>
+                                        <h3>Email Notifications</h3>
+                                        <p>Receive updates and reminders via email</p>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="toggle-item">
+                                    <div>
+                                        <h3>Assessment Reminders</h3>
+                                        <p>Get notified when it's time for a new assessment</p>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="toggle-item">
+                                    <div>
+                                        <h3>Health Tips</h3>
+                                        <p>Receive personalized health tips and insights</p>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="toggle-item">
+                                    <div>
+                                        <h3>Marketing Updates</h3>
+                                        <p>Stay informed about new features and updates</p>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">Save Preferences</button>
+                        </div>
+                    </div>
+
+                    <!-- Preferences Tab -->
+                    <div class="settings-panel" id="preferences">
+                        <h2>Application Preferences</h2>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label for="language">Language</label>
+                                <select id="language" class="form-input">
+                                    <option value="en">English</option>
+                                    <option value="es">Español</option>
+                                    <option value="fr">Français</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="units">Measurement Units</label>
+                                <select id="units" class="form-input">
+                                    <option value="metric">Metric (kg, cm)</option>
+                                    <option value="imperial">Imperial (lbs, inches)</option>
+                                </select>
+                            </div>
+                            <div class="toggle-group">
+                                <div class="toggle-item">
+                                    <div>
+                                        <h3>Dark Mode</h3>
+                                        <p>Use dark theme for reduced eye strain</p>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox" id="darkModeToggle">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">Save Preferences</button>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Tab -->
+                    <div class="settings-panel" id="privacy">
+                        <h2>Privacy & Data</h2>
+                        <div class="settings-form">
+                            <div class="privacy-section">
+                                <h3>Data Export</h3>
+                                <p>Download a copy of your health data and assessments</p>
+                                <button class="btn btn-secondary">Export Data</button>
+                            </div>
+                            <div class="privacy-section">
+                                <h3>Delete Account</h3>
+                                <p>Permanently delete your account and all associated data</p>
+                                <button class="btn btn-destructive">Delete Account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>
