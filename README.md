@@ -1,5 +1,4 @@
-EADME.md</path>
-<content"># HeartCareAI - AI-Powered Cardiovascular Risk Assessment Platform
+# HeartCareAI - AI-Powered Cardiovascular Risk Assessment Platform
 
 **A complete migration from React + TypeScript + Supabase to HTML/CSS/JS + FastAPI + SQLite**
 
@@ -53,13 +52,21 @@ heartcare-ai/
 │   ├── faq.html           # Frequently asked questions
 │   ├── privacy.html       # Privacy policy
 │   ├── css/
-│   │   └── styles.css     # Main stylesheet
+│   │   ├── styles.css     # Main stylesheet
+│   │   ├── auth.css       # Authentication page styles
+│   │   └── theme.css      # Theme system styles
 │   ├── js/
 │   │   ├── main.js        # Core utilities
-│   │   └── api.js         # API client
+│   │   ├── api.js         # API client
+│   │   ├── auth.js        # Authentication logic
+│   │   ├── assessment.js  # Assessment functionality
+│   │   └── theme.js       # Theme management
 │   └── includes/
 │       ├── header.html    # Shared header
 │       └── footer.html    # Shared footer
+└── public/
+    └── data/
+        └── heart.csv      # Heart failure prediction dataset
 ```
 
 ## ✨ Features
@@ -117,29 +124,92 @@ heartcare-ai/
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
-- Python 3.8+
-- Node.js (for any frontend builds, optional)
-- Modern web browser
+- **Python 3.8+** (Download from [python.org](https://python.org))
+- **Modern web browser** (Chrome, Firefox, Safari, Edge)
+- **Git** (for cloning the repository)
 
-### Backend Setup
+### Quick Setup (3 Steps)
+
+#### Step 1: Clone and Navigate
+```bash
+git clone <repository-url>
+cd heart-care-ai
+```
+
+#### Step 2: Backend Setup
+```bash
+cd backend
+pip install -r requirements.txt
+cp .env.example .env
+```
+
+**Edit the `.env` file with your configuration:**
+```env
+ENVIRONMENT=development
+SECRET_KEY=your-secret-key-here
+DATABASE_URL=sqlite:///./heartcareai.db
+GEMINI_API_KEY=your-gemini-api-key
+RESEND_API_KEY=your-resend-api-key
+ALLOWED_HOSTS=http://localhost:8080,http://127.0.0.1:8080
+CONTACT_EMAIL=contact@heartcareai.com
+BUSINESS_EMAIL=your-email@example.com
+```
+
+#### Step 3: Start the Application
+**Terminal 1 - Start Backend:**
+```bash
+cd backend
+python main.py
+```
+The backend will start at: `http://localhost:8000`
+
+**Terminal 2 - Start Frontend:**
+```bash
+# In a new terminal
+cd frontend
+python -m http.server 8080
+```
+The frontend will be available at: `http://localhost:8080`
+
+### Detailed Setup Instructions
+
+#### Backend Setup
 
 1. **Navigate to backend directory:**
    ```bash
    cd backend
    ```
 
-2. **Install Python dependencies:**
+2. **Create virtual environment (recommended):**
+   ```bash
+   python -m venv venv
+   ```
+
+3. **Activate virtual environment:**
+   
+   **On Windows:**
+   ```bash
+   venv\Scripts\activate
+   ```
+   
+   **On macOS/Linux:**
+   ```bash
+   source venv/bin/activate
+   ```
+
+4. **Install Python dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Set up environment variables:**
+5. **Set up environment variables:**
    ```bash
    cp .env.example .env
-   # Edit .env with your configuration
    ```
 
-4. **Run the FastAPI server:**
+6. **Edit `.env` file** with your configuration (see template above)
+
+7. **Run the FastAPI server:**
    ```bash
    python main.py
    ```
@@ -149,12 +219,13 @@ heartcare-ai/
    uvicorn main:app --host 0.0.0.0 --port 8000 --reload
    ```
 
-5. **Access the API:**
+8. **Verify backend is running:**
    - API Base URL: `http://localhost:8000`
    - API Documentation: `http://localhost:8000/docs`
    - Alternative Documentation: `http://localhost:8000/redoc`
+   - Health Check: `http://localhost:8000/health`
 
-### Frontend Setup
+#### Frontend Setup
 
 1. **Navigate to frontend directory:**
    ```bash
@@ -163,17 +234,17 @@ heartcare-ai/
 
 2. **Serve the static files:**
    
-   Using Python's built-in server:
+   **Option A - Python's built-in server:**
    ```bash
    python -m http.server 8080
    ```
    
-   Using Node.js http-server (if available):
+   **Option B - Node.js http-server:**
    ```bash
    npx http-server -p 8080
    ```
    
-   Using PHP (if available):
+   **Option C - PHP built-in server:**
    ```bash
    php -S localhost:8080
    ```
@@ -182,39 +253,72 @@ heartcare-ai/
    - Frontend: `http://localhost:8080`
    - Ensure backend is running on `http://localhost:8000`
 
+### Alternative: Serve Everything from Backend
+
+The backend is configured to serve the frontend files directly:
+
+1. **Navigate to the backend directory:**
+   ```bash
+   cd backend
+   ```
+
+2. **Start the backend server:**
+   ```bash
+   python main.py
+   ```
+
+3. **Access the application:**
+   - **Full application**: `http://localhost:8000/`
+   - **API Documentation**: `http://localhost:8000/docs`
+   - **Direct pages**:
+     - `http://localhost:8000/login.html`
+     - `http://localhost:8000/signup.html`
+     - `http://localhost:8000/assessment.html`
+
+This is the recommended approach as it handles CORS automatically and serves all files from one server.
+
 ## 🚀 Quick Start Guide
 
-### 1. Start the Backend
+### Method 1: Full Backend Integration (Recommended)
+```bash
+cd backend
+python main.py
+```
+Open browser to: `http://localhost:8000`
+
+### Method 2: Separate Frontend and Backend
+**Terminal 1:**
 ```bash
 cd backend
 python main.py
 ```
 
-### 2. Start the Frontend
+**Terminal 2:**
 ```bash
 cd frontend
 python -m http.server 8080
 ```
 
-### 3. Open the Application
-- Navigate to `http://localhost:8080`
-- Create an account or log in
-- Complete your first AI risk assessment
+Open browser to: `http://localhost:8080`
 
 ## 📡 API Endpoints
 
+### Health Check
+- `GET /health` - System health status
+
 ### Authentication
-- `POST /auth/signup` - User registration
-- `POST /auth/login` - User login
-- `GET /auth/me` - Get current user info
+- `POST /api/v1/auth/signup` - User registration
+- `POST /api/v1/auth/login` - User login
+- `GET /api/v1/auth/me` - Get current user info
 
 ### Assessments
-- `POST /assessment` - Create new assessment
-- `GET /assessment/history` - Get user assessment history
-- `DELETE /assessment/{id}` - Delete specific assessment
+- `POST /api/v1/assessments/calculate` - Calculate AI risk assessment
+- `POST /api/v1/assessments/` - Save assessment to database
+- `GET /api/v1/assessments/history` - Get user assessment history
+- `GET /api/v1/assessments/{id}` - Get specific assessment
 
-### Public
-- `GET /` - API health check
+### Contact
+- `POST /api/v1/contact/` - Send contact form
 
 ## 🎨 Design System
 
@@ -310,6 +414,18 @@ Three theme modes available:
 - SQLite files should be backed up regularly
 - For production, consider migrating to PostgreSQL
 
+### Environment Variables for Production
+```env
+ENVIRONMENT=production
+SECRET_KEY=your-production-secret-key
+DATABASE_URL=sqlite:///./heartcareai.db
+GEMINI_API_KEY=your-gemini-api-key
+RESEND_API_KEY=your-resend-api-key
+ALLOWED_HOSTS=https://your-domain.com
+CONTACT_EMAIL=contact@heartcareai.com
+BUSINESS_EMAIL=your-email@example.com
+```
+
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -317,6 +433,35 @@ Three theme modes available:
 3. Make your changes
 4. Test thoroughly
 5. Submit a pull request
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Backend not starting:**
+- Check Python version (3.8+ required)
+- Ensure all dependencies are installed: `pip install -r requirements.txt`
+- Check environment variables in `.env` file
+
+**Frontend not loading:**
+- Ensure backend is running on port 8000
+- Check browser console for errors
+- Verify CORS settings in backend
+
+**Authentication issues:**
+- Clear browser cookies and localStorage
+- Check JWT_SECRET_KEY in environment variables
+- Verify API endpoints are accessible
+
+**Database issues:**
+- Check SQLite file permissions
+- Ensure `heartcareai.db` is in the correct location
+- Run database migrations if needed
+
+### Getting Help
+- **Documentation**: Check `/docs` endpoint for API documentation
+- **Logs**: Check backend console for error messages
+- **Browser DevTools**: Use F12 to check network requests and console errors
 
 ## 📄 License
 
