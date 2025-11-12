@@ -1,182 +1,450 @@
-<!DOCTYPE html>
+rontend/assessment.html</path>
+<content"><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Risk Assessment - HeartCareAI</title>
+    <title>Assessment - HeartCareAI</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/assessment.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💚</text></svg>">
 </head>
-<body>
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <span class="heart-icon">💚</span>
-                <span class="logo-text">Heart<span class="logo-highlight">CareAI</span></span>
-            </a>
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="nav-menu" id="navMenu">
-                <a href="how-it-works.html" class="nav-link">How It Works</a>
-                <a href="about.html" class="nav-link">About</a>
-                <div class="nav-actions"></div>
-            </div>
-        </div>
-    </nav>
-
-    <div class="assessment-container">
-        <div class="container">
-            <div class="assessment-header">
-                <h1>Heart Health Risk Assessment</h1>
-                <p>Complete this comprehensive evaluation to receive your personalized cardiovascular risk analysis</p>
+<body class="min-h-screen flex flex-col bg-muted-30">
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+    
+    <div class="container py-8 flex-1">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-8 text-center">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">AI Risk Assessment</h1>
+                <p class="text-muted-foreground">
+                    Input your current health parameters for an immediate AI-driven assessment
+                </p>
             </div>
 
-            <form id="assessmentForm" class="assessment-form">
-                <!-- Personal Information -->
-                <div class="form-section">
-                    <h2 class="section-title">Personal Information</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="age">Age *</label>
-                            <input type="number" id="age" name="age" required min="18" max="120" class="form-input">
-                        </div>
-                        <div class="form-group">
-                            <label for="gender">Gender *</label>
-                            <select id="gender" name="gender" required class="form-input">
-                                <option value="">Select gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vital Signs -->
-                <div class="form-section">
-                    <h2 class="section-title">Vital Signs</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="restingBP">Resting Blood Pressure (mm Hg) *</label>
-                            <input type="number" id="restingBP" name="restingBP" required min="80" max="200" class="form-input">
-                        </div>
-                        <div class="form-group">
-                            <label for="cholesterol">Cholesterol (mg/dL) *</label>
-                            <input type="number" id="cholesterol" name="cholesterol" required min="100" max="400" class="form-input">
-                        </div>
-                        <div class="form-group">
-                            <label for="fastingBS">Fasting Blood Sugar (mg/dL) *</label>
-                            <input type="number" id="fastingBS" name="fastingBS" required min="70" max="300" class="form-input">
-                        </div>
-                        <div class="form-group">
-                            <label for="maxHR">Maximum Heart Rate *</label>
-                            <input type="number" id="maxHR" name="maxHR" required min="60" max="220" class="form-input">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Medical History -->
-                <div class="form-section">
-                    <h2 class="section-title">Medical History</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="chestPain">Chest Pain Type *</label>
-                            <select id="chestPain" name="chestPain" required class="form-input">
-                                <option value="">Select type</option>
-                                <option value="typical">Typical Angina</option>
-                                <option value="atypical">Atypical Angina</option>
-                                <option value="non-anginal">Non-Anginal Pain</option>
-                                <option value="asymptomatic">Asymptomatic</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="restingECG">Resting ECG *</label>
-                            <select id="restingECG" name="restingECG" required class="form-input">
-                                <option value="">Select result</option>
-                                <option value="normal">Normal</option>
-                                <option value="st-t-abnormal">ST-T Wave Abnormality</option>
-                                <option value="lv-hypertrophy">Left Ventricular Hypertrophy</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="exerciseAngina" name="exerciseAngina">
-                            <span>Exercise Induced Angina</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Lifestyle Factors -->
-                <div class="form-section">
-                    <h2 class="section-title">Lifestyle Factors</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="smoking">Smoking Status *</label>
-                            <select id="smoking" name="smoking" required class="form-input">
-                                <option value="">Select status</option>
-                                <option value="never">Never Smoked</option>
-                                <option value="former">Former Smoker</option>
-                                <option value="current">Current Smoker</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exercise">Exercise Frequency *</label>
-                            <select id="exercise" name="exercise" required class="form-input">
-                                <option value="">Select frequency</option>
-                                <option value="none">None</option>
-                                <option value="1-2">1-2 times/week</option>
-                                <option value="3-4">3-4 times/week</option>
-                                <option value="5+">5+ times/week</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
-                        Analyze Risk
+            <!-- Tabs -->
+            <div class="mb-6">
+                <div class="flex border-b border-border">
+                    <button id="assessment-tab" onclick="showTab('assessment')" class="px-4 py-2 border-b-2 border-primary text-primary">
+                        Health Assessment
                     </button>
-                    <button type="button" class="btn btn-ghost btn-lg" onclick="history.back()">
-                        Cancel
+                    <button id="recommendations-tab" onclick="showTab('recommendations')" class="px-4 py-2 border-b-2 border-transparent text-muted-foreground" disabled>
+                        AI Recommendations
                     </button>
                 </div>
-            </form>
+            </div>
 
-            <!-- Results Section (Initially Hidden) -->
-            <div id="resultsSection" class="results-section" style="display: none;">
-                <div class="results-card">
-                    <h2>Your Risk Assessment Results</h2>
-                    <div class="risk-score">
-                        <div class="risk-score-circle" id="riskScoreCircle">
-                            <span class="risk-percentage" id="riskPercentage">0%</span>
+            <!-- Assessment Tab -->
+            <div id="assessment-tab-content">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="md:col-span-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Health Parameters</div>
+                                <div class="card-description">
+                                    Please fill in all fields accurately for the best results
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <form id="assessment-form" class="space-y-6">
+                                    <div class="grid md:grid-cols-2 gap-4">
+                                        <div class="space-y-2">
+                                            <label for="age">Age (Years)</label>
+                                            <input
+                                                id="age"
+                                                name="age"
+                                                type="number"
+                                                placeholder="40"
+                                                min="1"
+                                                max="120"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label for="sex">Sex</label>
+                                            <select id="sex" name="sex" required>
+                                                <option value="">Select</option>
+                                                <option value="M">Male</option>
+                                                <option value="F">Female</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label for="restingBP">Resting BP (mm Hg)</label>
+                                            <input
+                                                id="restingBP"
+                                                name="restingBP"
+                                                type="number"
+                                                placeholder="120"
+                                                min="50"
+                                                max="300"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label for="cholesterol">Cholesterol (mg/dl)</label>
+                                            <input
+                                                id="cholesterol"
+                                                name="cholesterol"
+                                                type="number"
+                                                placeholder="200"
+                                                min="50"
+                                                max="600"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label for="fastingBS">Fasting Blood Sugar > 120 mg/dl</label>
+                                            <select id="fastingBS" name="fastingBS" required>
+                                                <option value="">Select</option>
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label for="restingECG">Resting ECG</label>
+                                            <select id="restingECG" name="restingECG" required>
+                                                <option value="">Select</option>
+                                                <option value="Normal">Normal</option>
+                                                <option value="ST">ST</option>
+                                                <option value="LVH">LVH</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label for="maxHR">Max Heart Rate (bpm)</label>
+                                            <input
+                                                id="maxHR"
+                                                name="maxHR"
+                                                type="number"
+                                                placeholder="150"
+                                                min="60"
+                                                max="220"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label for="exerciseAngina">Exercise Induced Angina</label>
+                                            <select id="exerciseAngina" name="exerciseAngina" required>
+                                                <option value="">Select</option>
+                                                <option value="N">No</option>
+                                                <option value="Y">Yes</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label for="oldpeak">Oldpeak (ST Depression)</label>
+                                            <input
+                                                id="oldpeak"
+                                                name="oldpeak"
+                                                type="number"
+                                                step="0.1"
+                                                placeholder="0"
+                                                min="0"
+                                                max="10"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label for="stSlope">ST Slope</label>
+                                            <select id="stSlope" name="stSlope" required>
+                                                <option value="">Select</option>
+                                                <option value="Up">Up</option>
+                                                <option value="Flat">Flat</option>
+                                                <option value="Down">Down</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label for="chestPainType">Chest Pain Type</label>
+                                            <select id="chestPainType" name="chestPainType" required>
+                                                <option value="">Select</option>
+                                                <option value="ATA">Atypical Angina</option>
+                                                <option value="NAP">Non-Anginal Pain</option>
+                                                <option value="ASY">Asymptomatic</option>
+                                                <option value="TA">Typical Angina</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-lg w-full" id="submit-btn">
+                                        <span id="submit-btn-text">Calculate AI Risk Score</span>
+                                        <div id="submit-spinner" class="loading-spinner hidden"></div>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                        <p class="risk-level" id="riskLevel">Calculating...</p>
                     </div>
-                    <div class="results-details" id="resultsDetails"></div>
-                    <div class="results-actions">
-                        <a href="recommendations.html" class="btn btn-primary" id="viewRecommendationsBtn">
-                            View Recommendations
-                        </a>
-                        <a href="history.html" class="btn btn-secondary">
-                            View History
-                        </a>
+
+                    <!-- Results Sidebar -->
+                    <div class="space-y-6">
+                        <div id="result-card" class="card" style="display: none;">
+                            <div class="card-content pt-6">
+                                <div class="flex flex-col items-center text-center space-y-4">
+                                    <div class="p-4 rounded-full bg-background">
+                                        <span id="risk-icon" style="font-size: 3rem;">❤️</span>
+                                    </div>
+                                    <div>
+                                        <h3 id="risk-score" class="font-bold text-2xl mb-2"></h3>
+                                        <span id="risk-badge" class="badge px-3 py-1 rounded-full text-sm"></span>
+                                        <p id="risk-description" class="text-sm text-muted-foreground mt-4"></p>
+                                        <div id="risk-factors" class="mt-4 text-left hidden">
+                                            <p class="text-sm font-medium mb-2">Key Risk Factors:</p>
+                                            <ul id="factors-list" class="text-xs text-muted-foreground space-y-1"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="ready-card" class="card bg-primary-5 border-primary-20">
+                            <div class="card-content pt-6">
+                                <div class="flex flex-col items-center text-center space-y-4">
+                                    <div class="p-4 rounded-full bg-background">
+                                        <span class="animate-pulse" style="font-size: 3rem;">❤️</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-lg mb-2">Ready for your assessment</h3>
+                                        <p class="text-sm text-muted-foreground">
+                                            Complete the form to receive your risk score and personalized AI recommendations
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations Tab -->
+            <div id="recommendations-tab-content" style="display: none;">
+                <div id="recommendations-content" class="card border-primary-20">
+                    <div class="card-header">
+                        <div class="card-title flex items-center gap-2">
+                            <span style="font-size: 1.25rem;">✨</span>
+                            AI Recommendations
+                        </div>
+                        <div class="card-description">
+                            Personalized guidance based on your health profile
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div id="recommendations-summary" class="mb-6 p-4 rounded-lg" style="background-color: hsla(var(--muted), 0.3);">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="space-y-1">
+                                    <p class="text-sm text-muted-foreground">Risk Score</p>
+                                    <p id="summary-risk-score" class="text-2xl font-bold"></p>
+                                </div>
+                                <span id="summary-risk-badge" class="badge px-3 py-1 rounded-full text-sm"></span>
+                            </div>
+                            <div id="summary-risk-factors" class="mt-4 hidden">
+                                <p class="text-sm font-medium mb-2">Key Risk Factors:</p>
+                                <ul id="summary-factors-list" class="text-sm text-muted-foreground space-y-1"></ul>
+                            </div>
+                        </div>
+                        <div id="recommendations-text" class="markdown-content"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
-    <script src="js/theme.js"></script>
+    <!-- Scripts -->
     <script src="js/main.js"></script>
     <script src="js/api.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/assessment.js"></script>
+    <script>
+        let currentAssessment = null;
+
+        // Load header and footer
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (!window.authManager || !window.authManager.requireAuth()) {
+                return;
+            }
+
+            // Load header
+            fetch('includes/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-placeholder').innerHTML = html;
+                    setTimeout(() => {
+                        if (window.updateAuthUI) {
+                            window.updateAuthUI();
+                        }
+                    }, 100);
+                })
+                .catch(error => console.error('Error loading header:', error));
+
+            // Load footer
+            fetch('includes/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-placeholder').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading footer:', error));
+
+            // Handle form submission
+            const assessmentForm = document.getElementById('assessment-form');
+            assessmentForm.addEventListener('submit', handleAssessment);
+        });
+
+        function showTab(tab) {
+            // Hide all tab contents
+            document.getElementById('assessment-tab-content').style.display = 'none';
+            document.getElementById('recommendations-tab-content').style.display = 'none';
+            
+            // Remove active styling from all tabs
+            document.getElementById('assessment-tab').classList.remove('border-primary', 'text-primary');
+            document.getElementById('recommendations-tab').classList.remove('border-primary', 'text-primary');
+            document.getElementById('assessment-tab').classList.add('border-transparent', 'text-muted-foreground');
+            document.getElementById('recommendations-tab').classList.add('border-transparent', 'text-muted-foreground');
+            
+            if (tab === 'assessment') {
+                document.getElementById('assessment-tab-content').style.display = 'block';
+                document.getElementById('assessment-tab').classList.remove('border-transparent', 'text-muted-foreground');
+                document.getElementById('assessment-tab').classList.add('border-primary', 'text-primary');
+            } else if (tab === 'recommendations') {
+                document.getElementById('recommendations-tab-content').style.display = 'block';
+                document.getElementById('recommendations-tab').classList.remove('border-transparent', 'text-muted-foreground');
+                document.getElementById('recommendations-tab').classList.add('border-primary', 'text-primary');
+            }
+        }
+
+        async function handleAssessment(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            
+            try {
+                // Validate data
+                window.api.validateAssessmentData(Object.fromEntries(formData));
+                
+                const submitBtn = document.getElementById('submit-btn');
+                const submitBtnText = document.getElementById('submit-btn-text');
+                const submitSpinner = document.getElementById('submit-spinner');
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtnText.textContent = 'Analyzing...';
+                submitSpinner.classList.remove('hidden');
+                
+                // Show processing toast
+                window.toastManager.info('Generating Recommendations...', 'AI is analyzing your health profile...');
+                
+                // Get assessment data
+                const assessmentData = window.api.parseHealthData(formData);
+                
+                // Create assessment via API
+                const result = await window.api.createAssessment(assessmentData);
+                
+                // Store current assessment
+                currentAssessment = result;
+                
+                // Update UI
+                updateResultsUI(result);
+                updateRecommendationsUI(result);
+                
+                // Switch to recommendations tab
+                showTab('recommendations');
+                document.getElementById('recommendations-tab').disabled = false;
+                
+                // Show success message
+                window.toastManager.success('Assessment complete! Your personalized recommendations are ready!');
+                
+            } catch (error) {
+                console.error('Assessment error:', error);
+                window.toastManager.error(error.message);
+            } finally {
+                // Reset button state
+                const submitBtn = document.getElementById('submit-btn');
+                const submitBtnText = document.getElementById('submit-btn-text');
+                const submitSpinner = document.getElementById('submit-spinner');
+                
+                submitBtn.disabled = false;
+                submitBtnText.textContent = 'Calculate AI Risk Score';
+                submitSpinner.classList.add('hidden');
+            }
+        }
+
+        function updateResultsUI(result) {
+            // Hide ready card and show result card
+            document.getElementById('ready-card').style.display = 'none';
+            const resultCard = document.getElementById('result-card');
+            resultCard.style.display = 'block';
+            
+            // Update risk score
+            document.getElementById('risk-score').textContent = `${result.risk_score}%`;
+            
+            // Update risk badge
+            const riskBadge = document.getElementById('risk-badge');
+            riskBadge.textContent = `${result.risk_level} Risk`;
+            riskBadge.className = `badge px-3 py-1 rounded-full text-sm ${window.getRiskColor(result.risk_level)}`;
+            
+            // Update risk icon
+            const riskIcon = document.getElementById('risk-icon');
+            if (result.risk_level === 'Low') {
+                riskIcon.textContent = '💚';
+                riskIcon.style.color = 'rgb(34, 197, 94)';
+            } else if (result.risk_level === 'Moderate') {
+                riskIcon.textContent = '💛';
+                riskIcon.style.color = 'rgb(234, 179, 8)';
+            } else {
+                riskIcon.textContent = '❤️';
+                riskIcon.style.color = 'rgb(239, 68, 68)';
+            }
+            
+            // Update description
+            const description = document.getElementById('risk-description');
+            if (result.risk_level === 'Low') {
+                description.textContent = 'Your cardiovascular risk is low. Keep up the healthy lifestyle!';
+            } else if (result.risk_level === 'Moderate') {
+                description.textContent = 'Your cardiovascular risk is moderate. Consider lifestyle changes and consult a healthcare provider.';
+            } else {
+                description.textContent = 'Your cardiovascular risk is high. Please consult a healthcare provider soon.';
+            }
+            
+            // Update risk factors
+            const factorsDiv = document.getElementById('risk-factors');
+            const factorsList = document.getElementById('factors-list');
+            
+            if (result.factors && result.factors.length > 0) {
+                factorsList.innerHTML = result.factors.map(factor => `<li>• ${factor}</li>`).join('');
+                factorsDiv.classList.remove('hidden');
+            } else {
+                factorsDiv.classList.add('hidden');
+            }
+        }
+
+        function updateRecommendationsUI(result) {
+            // Update summary
+            document.getElementById('summary-risk-score').textContent = `${result.risk_score}%`;
+            
+            const summaryBadge = document.getElementById('summary-risk-badge');
+            summaryBadge.textContent = `${result.risk_level} Risk`;
+            summaryBadge.className = `badge px-3 py-1 rounded-full text-sm ${window.getRiskColor(result.risk_level)}`;
+            
+            // Update summary factors
+            const summaryFactorsDiv = document.getElementById('summary-risk-factors');
+            const summaryFactorsList = document.getElementById('summary-factors-list');
+            
+            if (result.factors && result.factors.length > 0) {
+                summaryFactorsList.innerHTML = result.factors.map(factor => `<li>• ${factor}</li>`).join('');
+                summaryFactorsDiv.classList.remove('hidden');
+            } else {
+                summaryFactorsDiv.classList.add('hidden');
+            }
+            
+            // Parse and display recommendations
+            const recommendationsText = document.getElementById('recommendations-text');
+            recommendationsText.innerHTML = window.utils.parseMarkdown(result.recommendations);
+        }
+    </script>
 </body>
 </html>

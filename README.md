@@ -1,479 +1,342 @@
-# HeartCareAI - AI-Powered Cardiovascular Risk Assessment Platform
+EADME.md</path>
+<content"># HeartCareAI - AI-Powered Cardiovascular Risk Assessment Platform
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+**A complete migration from React + TypeScript + Supabase to HTML/CSS/JS + FastAPI + SQLite**
 
-HeartCareAI is an advanced web application that leverages artificial intelligence and machine learning to assess cardiovascular disease risk. The platform provides personalized health recommendations based on individual health parameters and medical data.
+## 🚀 Project Overview
 
-## 🌟 Features
+HeartCareAI is an advanced cardiovascular risk assessment platform that uses artificial intelligence to provide personalized health insights. This project has been completely restructured from a React/TypeScript frontend with Supabase backend to a modern web stack using plain HTML/CSS/JavaScript frontend with FastAPI (Python) backend and SQLite database.
 
-### Core Functionality
-- **AI-Powered Risk Assessment**: Machine learning model trained on clinical data to predict heart disease probability
-- **Personalized Recommendations**: Generative AI (Gemini) provides tailored health advice based on your unique profile
-- **Assessment History Tracking**: Monitor your cardiovascular health trends over time
-- **Real Authentication**: Secure user authentication system with email/password signup and login
-- **Responsive Design**: Fully responsive interface that works seamlessly on desktop, tablet, and mobile devices
+## 🏗️ Architecture
 
-### User Interface
-- **Tabbed Assessment Interface**: Separate tabs for health assessment and AI recommendations
-- **Mobile-Friendly Navigation**: Hamburger menu for mobile devices and dropdown menus for desktop
-- **Dark Mode Support**: Automatic theme switching based on system preferences
-- **Interactive Dashboard**: Track assessment history with visual trends and insights
+### Frontend (Plain HTML/CSS/JS)
+- **HTML**: Semantic, accessible markup
+- **CSS**: Custom CSS with HSL color system, responsive design, and dark/light themes
+- **JavaScript**: Vanilla JS with modern ES6+ features, modular architecture
+- **Features**: 
+  - Responsive design (mobile & desktop)
+  - Theme toggle (light/dark/system)
+  - Toast notifications
+  - Client-side form validation
+  - Smooth animations and transitions
 
-## 🏗️ Tech Stack
-
-### Frontend
-- **React 18**: Modern React with hooks and functional components
-- **TypeScript**: Type-safe development for better code quality
-- **Vite**: Lightning-fast build tool and development server
-- **Tailwind CSS**: Utility-first CSS framework with custom design system
-- **shadcn/ui**: High-quality, accessible UI components
-- **Radix UI**: Unstyled, accessible component primitives
-- **React Router**: Client-side routing for single-page application
-- **React Markdown**: Render AI recommendations in formatted markdown
-
-### Backend & Cloud
-- **Lovable Cloud**: Fully managed backend infrastructure powered by Supabase
-- **PostgreSQL**: Robust relational database for user data
-- **Edge Functions**: Serverless functions for AI integration
-- **Row Level Security (RLS)**: Database-level security policies
-
-### AI & Machine Learning
-- **Custom ML Model**: Trained on heart disease clinical dataset
-- **Gemini API**: Google's Generative AI for personalized health recommendations
-- **Real-time Analysis**: Instant risk calculations with detailed factor analysis
-
-### DevOps & Tools
-- **Git**: Version control
-- **ESLint**: Code linting and quality checks
-- **TypeScript**: Static type checking
-
-## 📋 Prerequisites
-
-Before you begin, ensure you have the following installed:
-- **Node.js** (v18 or higher) - [Download](https://nodejs.org/)
-- **npm** (comes with Node.js) or **yarn** package manager
-- **Git** - [Download](https://git-scm.com/)
-
-## 🚀 Getting Started
-
-### 1. Clone the Repository
-
-```bash
-git clone <YOUR_GIT_URL>
-cd <YOUR_PROJECT_NAME>
-```
-
-### 2. Install Dependencies
-
-```bash
-npm install
-```
-
-This will install all required packages including:
-- React and React DOM
-- TypeScript and types
-- Tailwind CSS and plugins
-- shadcn/ui components
-- Supabase client
-- And all other dependencies
-
-### 3. Environment Setup
-
-The project uses Lovable Cloud, which automatically configures your backend. The `.env` file is pre-configured with:
-
-```env
-VITE_SUPABASE_URL=<your-supabase-url>
-VITE_SUPABASE_PUBLISHABLE_KEY=<your-anon-key>
-VITE_SUPABASE_PROJECT_ID=<your-project-id>
-```
-
-**Note**: These variables are automatically managed. Do not edit the `.env` file manually.
-
-### 4. Run Development Server
-
-```bash
-npm run dev
-```
-
-The application will be available at `http://localhost:5173`
-
-### 5. Build for Production
-
-```bash
-npm run build
-```
-
-This creates an optimized production build in the `dist` directory.
-
-### 6. Preview Production Build
-
-```bash
-npm run preview
-```
+### Backend (FastAPI + SQLite)
+- **FastAPI**: Modern Python web framework with automatic API documentation
+- **SQLite**: Lightweight, file-based database
+- **Features**:
+  - JWT authentication
+  - RESTful API endpoints
+  - SQLAlchemy ORM
+  - Password hashing with bcrypt
+  - CORS support
+  - Automatic API documentation
 
 ## 📁 Project Structure
 
 ```
 heartcare-ai/
-├── public/                    # Static assets
-│   ├── data/                 # ML model training data
-│   └── robots.txt            # SEO configuration
-├── src/
-│   ├── assets/               # Images and media files
-│   ├── components/           # React components
-│   │   ├── ui/              # shadcn/ui components
-│   │   ├── AuthHeader.tsx   # Authenticated user header
-│   │   ├── Header.tsx       # Public pages header
-│   │   ├── Footer.tsx       # Site footer
-│   │   ├── MobileNav.tsx    # Mobile navigation menu
-│   │   └── ...
-│   ├── contexts/            # React contexts
-│   │   └── AuthContext.tsx  # Authentication state management
-│   ├── hooks/               # Custom React hooks
-│   │   ├── use-toast.ts    # Toast notifications
-│   │   └── use-mobile.tsx  # Mobile detection
-│   ├── lib/                 # Utility functions
-│   │   ├── predictRisk.ts  # ML risk prediction logic
-│   │   └── utils.ts        # Helper functions
-│   ├── pages/               # Page components
-│   │   ├── Home.tsx        # Landing page
-│   │   ├── Login.tsx       # Login page
-│   │   ├── Signup.tsx      # Registration page
-│   │   ├── Assessment.tsx  # Risk assessment form
-│   │   ├── History.tsx     # Assessment history
-│   │   ├── Settings.tsx    # User settings
-│   │   └── ...
-│   ├── integrations/        # External service integrations
-│   │   └── supabase/       # Supabase client & types
-│   ├── App.tsx              # Main app component
-│   ├── main.tsx            # Application entry point
-│   └── index.css           # Global styles & design tokens
-├── supabase/                # Backend configuration
-│   ├── config.toml         # Supabase configuration
-│   └── functions/          # Edge functions
-│       ├── generate-health-recommendations/
-│       └── send-contact-email/
-├── index.html              # HTML entry point
-├── vite.config.ts         # Vite configuration
-├── tailwind.config.ts     # Tailwind CSS configuration
-├── tsconfig.json          # TypeScript configuration
-└── package.json           # Project dependencies
-
+├── backend/                 # FastAPI Backend
+│   ├── main.py             # Main application
+│   ├── requirements.txt    # Python dependencies
+│   └── .env               # Environment configuration
+│
+├── frontend/              # Plain HTML/CSS/JS Frontend
+│   ├── index.html         # Home page
+│   ├── login.html         # Authentication
+│   ├── signup.html        # User registration
+│   ├── assessment.html    # AI risk assessment
+│   ├── history.html       # Assessment history
+│   ├── settings.html      # User settings
+│   ├── about.html         # About page
+│   ├── how-it-works.html  # Process explanation
+│   ├── contact.html       # Contact form
+│   ├── faq.html           # Frequently asked questions
+│   ├── privacy.html       # Privacy policy
+│   ├── css/
+│   │   └── styles.css     # Main stylesheet
+│   ├── js/
+│   │   ├── main.js        # Core utilities
+│   │   └── api.js         # API client
+│   └── includes/
+│       ├── header.html    # Shared header
+│       └── footer.html    # Shared footer
 ```
+
+## ✨ Features
+
+### 🔐 Authentication System
+- User registration and login
+- JWT-based authentication
+- Secure password hashing
+- Session management
+- Protected routes
+
+### 🏥 AI Risk Assessment
+- Comprehensive health data input form
+- 11 health parameters assessment:
+  - Age, Sex
+  - Blood Pressure (Resting BP)
+  - Cholesterol levels
+  - Fasting Blood Sugar
+  - Resting ECG
+  - Maximum Heart Rate
+  - Exercise-induced Angina
+  - Oldpeak (ST Depression)
+  - ST Slope
+  - Chest Pain Type
+- Real-time risk calculation
+- AI-powered recommendations
+
+### 📊 Risk Analysis
+- **Risk Scoring**: 0-100% cardiovascular risk percentage
+- **Risk Levels**: Low (0-30%), Moderate (30-60%), High (60-100%)
+- **Factor Identification**: Key contributing risk factors
+- **Trend Analysis**: Historical assessment tracking
+
+### 🤖 AI Recommendations
+- Personalized health recommendations
+- Lifestyle modification suggestions
+- Dietary guidance
+- Exercise recommendations
+- Medical consultation advice
+
+### 📱 User Experience
+- **Responsive Design**: Mobile-first approach
+- **Theme Toggle**: Light/Dark/System themes
+- **Loading States**: Smooth loading indicators
+- **Toast Notifications**: User feedback system
+- **Form Validation**: Client-side validation
+- **Accessibility**: WCAG compliant design
+
+### 💾 Data Management
+- Secure SQLite database
+- User-specific assessment history
+- Data export capabilities
+- Privacy-focused design
+
+## 🛠️ Setup & Installation
+
+### Prerequisites
+- Python 3.8+
+- Node.js (for any frontend builds, optional)
+- Modern web browser
+
+### Backend Setup
+
+1. **Navigate to backend directory:**
+   ```bash
+   cd backend
+   ```
+
+2. **Install Python dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Set up environment variables:**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
+
+4. **Run the FastAPI server:**
+   ```bash
+   python main.py
+   ```
+   
+   Or using uvicorn directly:
+   ```bash
+   uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+   ```
+
+5. **Access the API:**
+   - API Base URL: `http://localhost:8000`
+   - API Documentation: `http://localhost:8000/docs`
+   - Alternative Documentation: `http://localhost:8000/redoc`
+
+### Frontend Setup
+
+1. **Navigate to frontend directory:**
+   ```bash
+   cd frontend
+   ```
+
+2. **Serve the static files:**
+   
+   Using Python's built-in server:
+   ```bash
+   python -m http.server 8080
+   ```
+   
+   Using Node.js http-server (if available):
+   ```bash
+   npx http-server -p 8080
+   ```
+   
+   Using PHP (if available):
+   ```bash
+   php -S localhost:8080
+   ```
+
+3. **Access the application:**
+   - Frontend: `http://localhost:8080`
+   - Ensure backend is running on `http://localhost:8000`
+
+## 🚀 Quick Start Guide
+
+### 1. Start the Backend
+```bash
+cd backend
+python main.py
+```
+
+### 2. Start the Frontend
+```bash
+cd frontend
+python -m http.server 8080
+```
+
+### 3. Open the Application
+- Navigate to `http://localhost:8080`
+- Create an account or log in
+- Complete your first AI risk assessment
+
+## 📡 API Endpoints
+
+### Authentication
+- `POST /auth/signup` - User registration
+- `POST /auth/login` - User login
+- `GET /auth/me` - Get current user info
+
+### Assessments
+- `POST /assessment` - Create new assessment
+- `GET /assessment/history` - Get user assessment history
+- `DELETE /assessment/{id}` - Delete specific assessment
+
+### Public
+- `GET /` - API health check
 
 ## 🎨 Design System
 
-HeartCareAI uses a custom design system built with Tailwind CSS and HSL color tokens. All colors are semantic and support both light and dark modes.
+### Color Palette
+- **Primary**: HSL(170, 100%, 42%) - Teal green
+- **Background**: HSL(0, 0%, 100%) - White (Light mode)
+- **Foreground**: HSL(180, 30%, 15%) - Dark gray
+- **Medical Colors**:
+  - Dark: HSL(180, 45%, 12%)
+  - Medium: HSL(180, 35%, 25%)
+  - Light: HSL(170, 90%, 92%)
 
-### Color Tokens
-- `--primary`: Main brand color (teal)
-- `--secondary`: Secondary UI elements
-- `--muted`: Subtle backgrounds and text
-- `--accent`: Emphasis and highlights
-- `--destructive`: Error states
-- `--medical-*`: Healthcare-specific theme colors
+### Typography
+- **Font Family**: System fonts (-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, etc.)
+- **Font Sizes**: Responsive typography with proper hierarchy
+- **Weights**: 400 (normal), 500 (medium), 600 (semibold), 700 (bold)
 
-### Key Design Principles
-- **Semantic tokens**: Use design system variables instead of hard-coded colors
-- **Responsive design**: Mobile-first approach with breakpoints
-- **Accessibility**: WCAG 2.1 AA compliant components
-- **Consistent spacing**: Based on Tailwind's spacing scale
-- **Typography**: System font stack for optimal performance
+### Components
+- **Cards**: Rounded corners, subtle shadows
+- **Buttons**: Multiple variants (primary, outline, ghost, etc.)
+- **Forms**: Consistent styling with validation states
+- **Navigation**: Sticky header with responsive mobile menu
 
-## 🔐 Authentication
+## 🔒 Security Features
 
-HeartCareAI implements secure authentication with the following features:
+### Authentication
+- JWT tokens with configurable expiration
+- Secure password hashing using bcrypt
+- Protected routes and API endpoints
 
-### User Registration
-1. Navigate to `/signup`
-2. Enter email and password
-3. Auto-confirm is enabled (no email verification required in development)
-4. Automatic profile creation in database
+### Data Protection
+- SQL injection prevention via SQLAlchemy ORM
+- Input validation and sanitization
+- CORS configuration
+- Environment variable protection
 
-### User Login
-1. Navigate to `/login`
-2. Enter credentials
-3. Session persisted in local storage
-4. Protected routes require authentication
+### Privacy
+- No tracking cookies (optional analytics)
+- Secure data transmission
+- User data control and deletion rights
 
-### Security Features
-- **Row Level Security (RLS)**: Database-level access control
-- **Secure session management**: JWT-based authentication
-- **Password hashing**: Bcrypt encryption
-- **Protected routes**: Authentication guards on sensitive pages
+## 🧪 Testing
 
-## 🧠 ML Risk Assessment
-
-### How It Works
-
-1. **Data Input**: User enters 11 health parameters:
-   - Age, Sex, Chest Pain Type
-   - Resting Blood Pressure, Cholesterol
-   - Fasting Blood Sugar, Resting ECG
-   - Max Heart Rate, Exercise Angina
-   - Oldpeak (ST Depression), ST Slope
-
-2. **Data Cleaning**: Normalize and validate input data
-
-3. **Risk Prediction**: ML model calculates risk score (0-100%)
-
-4. **Risk Classification**:
-   - **Low Risk**: 0-33%
-   - **Moderate Risk**: 34-66%
-   - **High Risk**: 67-100%
-
-5. **AI Recommendations**: Gemini API generates personalized advice
-
-### Model Training
-The ML model is trained on the UCI Heart Disease dataset containing clinical data from 918 patients with 11 features.
-
-## 🤖 AI Recommendations
-
-HeartCareAI uses Google's Gemini Pro model to generate personalized health recommendations:
-
-### What It Analyzes
-- Your specific health parameters
-- Calculated risk score and level
-- Identified risk factors
-- Medical knowledge base
-
-### Recommendation Categories
-- **Lifestyle modifications**: Diet, exercise, stress management
-- **Medical considerations**: When to see a doctor
-- **Preventive measures**: Long-term health strategies
-- **Risk factor management**: Targeted interventions
-
-### Technical Implementation
-- Serverless Edge Function for API calls
-- Structured prompt engineering for medical accuracy
-- Markdown formatting for readable output
-- Error handling and fallbacks
-
-## 📊 Assessment History
-
-Track your cardiovascular health over time:
-- **Historical records**: All past assessments saved
-- **Trend analysis**: Visual indicators for improving/worsening risk
-- **Detailed view**: Access past recommendations
-- **Data persistence**: Stored securely in your profile
-
-## 🌐 Deployment
-
-### Deploy with Lovable
-
-1. Open your project in [Lovable](https://lovable.dev)
-2. Click **Publish** (top right on desktop, bottom-right on mobile)
-3. Follow the deployment wizard
-4. Your app is live!
-
-### Manual Deployment
-
-HeartCareAI can be deployed to any static hosting service:
-
-#### Vercel
+### Backend Testing
 ```bash
-npm install -g vercel
-vercel
+cd backend
+pytest
 ```
 
-#### Netlify
-```bash
-npm run build
-# Upload dist folder to Netlify
-```
+### Frontend Testing
+Manual testing recommended for:
+- Authentication flows
+- Form submissions
+- Responsive design
+- Theme switching
+- Cross-browser compatibility
 
-#### GitHub Pages
-```bash
-npm run build
-# Configure GitHub Pages to serve from dist folder
-```
+## 📱 Responsive Design
 
-### Custom Domain
+The application is fully responsive with breakpoints:
+- **Mobile**: < 640px
+- **Tablet**: 640px - 1024px
+- **Desktop**: > 1024px
 
-To connect a custom domain:
-1. Navigate to Project → Settings → Domains in Lovable
-2. Click "Connect Domain"
-3. Follow DNS configuration instructions
-4. Note: Requires a paid Lovable plan
+### Mobile Features
+- Collapsible navigation menu
+- Touch-friendly buttons and forms
+- Optimized form layouts
+- Responsive typography
 
-## 🔧 Configuration
+## 🌙 Theme System
 
-### Tailwind Configuration
-Customize the design system in `tailwind.config.ts`:
-```typescript
-export default {
-  theme: {
-    extend: {
-      colors: {
-        // Add custom colors
-      }
-    }
-  }
-}
-```
+Three theme modes available:
+- **Light**: Clean, bright interface
+- **Dark**: Easy on the eyes for low-light usage
+- **System**: Automatically follows system preference
 
-### TypeScript Configuration
-Strict mode enabled in `tsconfig.json` for type safety.
+## 🚀 Deployment
 
-### Vite Configuration
-Custom configuration in `vite.config.ts` for:
-- Path aliases (`@/` for `src/`)
-- Build optimizations
-- Development server settings
+### Backend Deployment
+1. Set production environment variables
+2. Use a production WSGI server like Gunicorn:
+   ```bash
+   gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker
+   ```
 
-## 🧪 Development Workflow
+### Frontend Deployment
+1. Serve static files from any web server
+2. Configure CORS for production domain
+3. Update API endpoints for production
 
-### Adding New Components
-
-1. Create component in `src/components/`:
-```tsx
-// src/components/MyComponent.tsx
-import { Button } from "@/components/ui/button";
-
-export const MyComponent = () => {
-  return <Button>Click me</Button>;
-};
-```
-
-2. Import and use:
-```tsx
-import { MyComponent } from "@/components/MyComponent";
-```
-
-### Adding New Pages
-
-1. Create page in `src/pages/`:
-```tsx
-// src/pages/MyPage.tsx
-export default function MyPage() {
-  return <div>My Page</div>;
-}
-```
-
-2. Add route in `src/App.tsx`:
-```tsx
-<Route path="/my-page" element={<MyPage />} />
-```
-
-### Using shadcn/ui Components
-
-Install new components:
-```bash
-npx shadcn-ui@latest add [component-name]
-```
-
-Example:
-```bash
-npx shadcn-ui@latest add dialog
-```
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Issue**: npm install fails
-```bash
-# Clear npm cache
-npm cache clean --force
-# Delete node_modules and package-lock.json
-rm -rf node_modules package-lock.json
-# Reinstall
-npm install
-```
-
-**Issue**: TypeScript errors
-```bash
-# Check TypeScript configuration
-npx tsc --noEmit
-```
-
-**Issue**: Port 5173 already in use
-```bash
-# Kill process using port
-lsof -ti:5173 | xargs kill -9
-# Or specify different port
-npm run dev -- --port 3000
-```
-
-**Issue**: Authentication not working
-- Check that auto-confirm email is enabled in Lovable Cloud settings
-- Verify environment variables are correctly set
-- Check browser console for detailed error messages
-
-## 📱 Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+### Database
+- SQLite files should be backed up regularly
+- For production, consider migrating to PostgreSQL
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
-
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### Code Style
-- Follow TypeScript best practices
-- Use semantic HTML
-- Follow the existing component structure
-- Write meaningful commit messages
-- Add comments for complex logic
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙏 Acknowledgments
+## 👥 Team
 
-- **UCI Machine Learning Repository**: Heart Disease dataset
-- **Google Gemini**: AI recommendations API
-- **shadcn/ui**: Beautiful UI components
-- **Radix UI**: Accessible primitives
-- **Lovable**: Cloud infrastructure and deployment platform
+**Christine Mirimba** - Founder & Lead Developer
+- LinkedIn: [Christine Mirimba](https://www.linkedin.com/in/christine-mirimba-51202a26b/)
+- Twitter: [@Tinnah_Mirimba](https://x.com/Tinnah_Mirimba)
+- Instagram: [@christinemirimba](https://www.instagram.com/christinemirimba/?hl=en)
+
+## 🏥 Medical Disclaimer
+
+HeartCareAI is designed for informational and educational purposes only. The assessments and recommendations provided are not intended to replace professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare providers for medical decisions.
 
 ## 📞 Support
 
-For support and questions:
-- **Documentation**: [Lovable Docs](https://docs.lovable.dev/)
-- **Community**: [Discord](https://discord.com/channels/1119885301872070706/1280461670979993613)
-- **Contact Page**: Use the in-app contact form
-
-## 🗺️ Roadmap
-
-### Upcoming Features
-- [ ] Export assessment reports as PDF
-- [ ] Integration with wearable devices
-- [ ] Multi-language support
-- [ ] Advanced data visualization charts
-- [ ] Social features (share anonymized data)
-- [ ] Telemedicine integration
-- [ ] Mobile app (React Native)
-
-## ⚠️ Medical Disclaimer
-
-HeartCareAI is an educational and informational tool. It is **NOT** a substitute for professional medical advice, diagnosis, or treatment. Always consult qualified healthcare providers regarding medical conditions and treatment options.
-
-The risk assessments and recommendations provided are based on statistical models and should not be used as the sole basis for medical decisions.
-
-## 📈 Version History
-
-### v1.0.0 (Current)
-- Initial release
-- Core risk assessment functionality
-- AI-powered recommendations
-- User authentication
-- Assessment history tracking
-- Responsive design
-- Mobile navigation
+For support, email support@heartcareai.com or create an issue in this repository.
 
 ---
 
-**Built with ❤️ using Lovable**
-
-For more information, visit [lovable.dev](https://lovable.dev)
+**© 2025 HeartCareAI. All rights reserved.**

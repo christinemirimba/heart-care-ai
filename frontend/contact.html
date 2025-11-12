@@ -1,191 +1,240 @@
-<!DOCTYPE html>
+rontend/contact.html</path>
+<content"><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - HeartCareAI</title>
+    <title>Contact - HeartCareAI</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/contact.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💚</text></svg>">
 </head>
-<body>
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <span class="heart-icon">💚</span>
-                <span class="logo-text">Heart<span class="logo-highlight">CareAI</span></span>
-            </a>
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="nav-menu" id="navMenu">
-                <a href="how-it-works.html" class="nav-link">How It Works</a>
-                <a href="about.html" class="nav-link">About</a>
-                <div class="nav-actions">
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                        <span class="theme-icon">🌙</span>
-                    </button>
-                    <a href="login.html" class="btn btn-ghost">Log In</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
-    <div class="contact-container">
-        <div class="container">
-            <div class="contact-header">
-                <h1>Get In Touch</h1>
-                <p>We're here to help and answer any questions you might have</p>
-            </div>
-
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="info-card">
-                        <div class="info-icon">📧</div>
-                        <h3>Email Us</h3>
-                        <p>support@heartcareai.com</p>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-icon">📞</div>
-                        <h3>Call Us</h3>
-                        <p>+1 (555) 123-4567</p>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-icon">📍</div>
-                        <h3>Visit Us</h3>
-                        <p>123 Health Street<br>Medical City, MC 12345</p>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-icon">🕐</div>
-                        <h3>Business Hours</h3>
-                        <p>Mon-Fri: 9AM - 6PM<br>Sat-Sun: Closed</p>
-                    </div>
+    <div class="flex-1">
+        <div class="container py-16">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Get in Touch</h1>
+                    <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+                        Have questions about HeartCareAI? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                    </p>
                 </div>
 
-                <div class="contact-form-container">
-                    <h2>Send Us a Message</h2>
-                    <form id="contactForm" class="contact-form">
-                        <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" required class="form-input" placeholder="John Doe">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Contact Form -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Send us a Message</div>
+                            <div class="card-description">
+                                Fill out the form below and we'll get back to you within 24 hours
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <form id="contact-form" class="space-y-4">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="space-y-2">
+                                        <label for="firstName">First Name</label>
+                                        <input id="firstName" name="firstName" type="text" required>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label for="lastName">Last Name</label>
+                                        <input id="lastName" name="lastName" type="text" required>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="email">Email</label>
+                                    <input id="email" name="email" type="email" required>
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="subject">Subject</label>
+                                    <select id="subject" name="subject" required>
+                                        <option value="">Select a topic</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="technical">Technical Support</option>
+                                        <option value="medical">Medical Questions</option>
+                                        <option value="partnership">Partnership</option>
+                                        <option value="feedback">Feedback</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" name="message" rows="5" required 
+                                              placeholder="Please describe your question or concern..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-default w-full">
+                                    <span id="submit-btn-text">Send Message</span>
+                                    <div id="submit-spinner" class="loading-spinner hidden"></div>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="space-y-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Contact Information</div>
+                                <div class="card-description">
+                                    Various ways to reach our team
+                                </div>
+                            </div>
+                            <div class="card-content space-y-6">
+                                <div class="flex items-start space-x-3">
+                                    <span style="font-size: 1.5rem;">📧</span>
+                                    <div>
+                                        <h4 class="font-medium">Email</h4>
+                                        <p class="text-sm text-muted-foreground">support@heartcareai.com</p>
+                                        <p class="text-sm text-muted-foreground">info@heartcareai.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span style="font-size: 1.5rem;">📞</span>
+                                    <div>
+                                        <h4 class="font-medium">Phone</h4>
+                                        <p class="text-sm text-muted-foreground">+254 700 000 000</p>
+                                        <p class="text-xs text-muted-foreground">Available Monday - Friday, 9AM - 5PM EAT</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span style="font-size: 1.5rem;">📍</span>
+                                    <div>
+                                        <h4 class="font-medium">Address</h4>
+                                        <p class="text-sm text-muted-foreground">
+                                            Nairobi, Kenya<br>
+                                            East Africa
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <span style="font-size: 1.5rem;">🕒</span>
+                                    <div>
+                                        <h4 class="font-medium">Response Time</h4>
+                                        <p class="text-sm text-muted-foreground">
+                                            We typically respond within 24 hours during business days
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required class="form-input" placeholder="john@example.com">
+                        <!-- Social Media -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Follow Us</div>
+                                <div class="card-description">
+                                    Stay updated with our latest news and features
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="flex space-x-4">
+                                    <a href="https://www.facebook.com/christine.kwamboka.39904" target="_blank" 
+                                       class="flex items-center justify-center w-12 h-12 rounded-full transition-colors"
+                                       style="background-color: hsla(var(--primary), 0.1); color: hsl(var(--primary));">
+                                        <span style="font-size: 1.5rem;">📘</span>
+                                    </a>
+                                    <a href="https://www.instagram.com/christinemirimba/?hl=en" target="_blank" 
+                                       class="flex items-center justify-center w-12 h-12 rounded-full transition-colors"
+                                       style="background-color: hsla(var(--primary), 0.1); color: hsl(var(--primary));">
+                                        <span style="font-size: 1.5rem;">📷</span>
+                                    </a>
+                                    <a href="https://x.com/Tinnah_Mirimba?t=nZPhrf1oB28G1s6LyyrssA&s=09" target="_blank" 
+                                       class="flex items-center justify-center w-12 h-12 rounded-full transition-colors"
+                                       style="background-color: hsla(var(--primary), 0.1); color: hsl(var(--primary));">
+                                        <span style="font-size: 1.5rem;">🐦</span>
+                                    </a>
+                                    <a href="https://www.linkedin.com/in/christine-mirimba-51202a26b/" target="_blank" 
+                                       class="flex items-center justify-center w-12 h-12 rounded-full transition-colors"
+                                       style="background-color: hsla(var(--primary), 0.1); color: hsl(var(--primary));">
+                                        <span style="font-size: 1.5rem;">💼</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="subject">Subject *</label>
-                            <select id="subject" name="subject" required class="form-input">
-                                <option value="">Select a subject</option>
-                                <option value="general">General Inquiry</option>
-                                <option value="support">Technical Support</option>
-                                <option value="feedback">Feedback</option>
-                                <option value="partnership">Partnership</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Message *</label>
-                            <textarea id="message" name="message" required class="form-input" rows="6" placeholder="How can we help you?"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
-                            Send Message
-                        </button>
-                    </form>
+                    </div>
                 </div>
-            </div>
 
-            <div class="faq-section">
-                <h2>Frequently Asked Questions</h2>
-                <div class="faq-grid">
-                    <div class="faq-item">
-                        <h3>How accurate is the AI assessment?</h3>
-                        <p>Our AI algorithms have achieved 98%+ accuracy in cardiovascular risk prediction, validated against thousands of medical records.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>Is my health data secure?</h3>
-                        <p>Yes, we use HIPAA-compliant encryption and security measures to protect all your health information.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>Can I share results with my doctor?</h3>
-                        <p>Absolutely! You can download and share your assessment results with your healthcare provider.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>How often should I take assessments?</h3>
-                        <p>We recommend quarterly assessments to track your cardiovascular health progress over time.</p>
+                <!-- FAQ Link -->
+                <div class="mt-16 text-center">
+                    <div class="card bg-primary-5 border-primary-20">
+                        <div class="card-content py-8">
+                            <h3 class="text-xl font-semibold mb-2">Looking for Quick Answers?</h3>
+                            <p class="text-muted-foreground mb-4">
+                                Check out our frequently asked questions for immediate help
+                            </p>
+                            <button onclick="window.location.href='faq.html'" class="btn btn-primary btn-default">
+                                View FAQ
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="logo">
-                        <span class="heart-icon">💚</span>
-                        <span class="logo-text">Heart<span class="logo-highlight">CareAI</span></span>
-                    </div>
-                    <p>Advanced heart health prediction powered by AI.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="how-it-works.html">How It Works</a></li>
-                        <li><a href="assessment.html">Assessment</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 HeartCareAI. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/theme.js"></script>
+    <!-- Scripts -->
     <script src="js/main.js"></script>
-    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
     <script>
-        const contactForm = document.getElementById('contactForm');
-        const submitBtn = document.getElementById('submitBtn');
+        // Load header and footer
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load header
+            fetch('includes/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-placeholder').innerHTML = html;
+                    setTimeout(() => {
+                        if (window.updateAuthUI) {
+                            window.updateAuthUI();
+                        }
+                    }, 100);
+                })
+                .catch(error => console.error('Error loading header:', error));
 
-        contactForm.addEventListener('submit', async (e) => {
+            // Load footer
+            fetch('includes/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-placeholder').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading footer:', error));
+
+            // Handle form submission
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', handleContactSubmit);
+        });
+
+        async function handleContactSubmit(e) {
             e.preventDefault();
-
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value
-            };
-
-            submitBtn.disabled = true;
+            
+            const formData = new FormData(e.target);
+            const submitBtn = document.getElementById('submit-btn-text');
+            const submitSpinner = document.getElementById('submit-spinner');
+            
+            // Show loading state
             submitBtn.textContent = 'Sending...';
-
+            submitSpinner.classList.remove('hidden');
+            
             try {
-                // Simulate API call
+                // Simulate form submission (in real implementation, send to backend)
                 await new Promise(resolve => setTimeout(resolve, 1500));
                 
-                HeartCareAI.showAlert('Message sent successfully! We\'ll get back to you soon.', 'success');
-                contactForm.reset();
+                window.toastManager.success('Message sent successfully! We\'ll get back to you within 24 hours.');
+                e.target.reset();
+                
             } catch (error) {
-                HeartCareAI.showAlert('Failed to send message. Please try again.', 'error');
+                console.error('Contact form error:', error);
+                window.toastManager.error('Failed to send message. Please try again.');
             } finally {
-                submitBtn.disabled = false;
+                // Reset button state
                 submitBtn.textContent = 'Send Message';
+                submitSpinner.classList.add('hidden');
             }
-        });
+        }
     </script>
 </body>
 </html>

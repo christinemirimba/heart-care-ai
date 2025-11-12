@@ -1,186 +1,197 @@
-<!DOCTYPE html>
+rontend/about.html</path>
+<content"><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - HeartCareAI</title>
+    <title>About - HeartCareAI</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💚</text></svg>">
 </head>
-<body>
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <span class="heart-icon">💚</span>
-                <span class="logo-text">Heart<span class="logo-highlight">CareAI</span></span>
-            </a>
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="nav-menu" id="navMenu">
-                <a href="how-it-works.html" class="nav-link">How It Works</a>
-                <a href="about.html" class="nav-link">About</a>
-                <div class="nav-actions">
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                        <span class="theme-icon">🌙</span>
-                    </button>
-                    <a href="login.html" class="btn btn-ghost">Log In</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
-    <div class="about-hero">
-        <div class="container">
-            <h1>About HeartCareAI</h1>
-            <p class="hero-subtitle">Revolutionizing cardiovascular health through artificial intelligence</p>
+    <div class="flex-1">
+        <div class="container py-16">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">About HeartCareAI</h1>
+                    <p class="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                        We're revolutionizing cardiovascular health assessment through the power of artificial intelligence, 
+                        making preventive healthcare accessible to everyone, anywhere, anytime.
+                    </p>
+                </div>
+
+                <!-- Mission Section -->
+                <section class="mb-16">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+                            <p class="text-lg text-muted-foreground mb-6 leading-relaxed">
+                                HeartCareAI was born from a simple yet powerful belief: everyone deserves access to 
+                                comprehensive cardiovascular health insights. We combine cutting-edge machine learning 
+                                with medical expertise to provide personalized, accurate, and actionable health assessments.
+                            </p>
+                            <p class="text-muted-foreground leading-relaxed">
+                                Our platform empowers individuals to take control of their heart health through 
+                                real-time risk assessment, personalized recommendations, and continuous monitoring 
+                                capabilities.
+                            </p>
+                        </div>
+                        <div class="card bg-primary-5 border-primary-20">
+                            <div class="card-content pt-8 pb-8 text-center">
+                                <span style="font-size: 4rem;">❤️</span>
+                                <h3 class="text-xl font-semibold mt-4 mb-2">Healthcare for All</h3>
+                                <p class="text-muted-foreground">
+                                    Making advanced cardiovascular assessment accessible to everyone, 
+                                    regardless of location or economic status.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Technology Section -->
+                <section class="mb-16">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold mb-4">Our Technology</h2>
+                        <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                            Built on advanced machine learning algorithms trained on extensive medical datasets
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="card">
+                            <div class="card-content pt-6">
+                                <div class="text-center">
+                                    <span style="font-size: 3rem;">🧠</span>
+                                    <h3 class="text-lg font-semibold mt-4 mb-2">AI-Powered Analysis</h3>
+                                    <p class="text-sm text-muted-foreground">
+                                        Our machine learning models analyze multiple health parameters to 
+                                        provide accurate risk assessments with 98%+ accuracy.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-content pt-6">
+                                <div class="text-center">
+                                    <span style="font-size: 3rem;">📊</span>
+                                    <h3 class="text-lg font-semibold mt-4 mb-2">Data-Driven Insights</h3>
+                                    <p class="text-sm text-muted-foreground">
+                                        We leverage extensive cardiovascular health databases to identify 
+                                        patterns and risk factors that matter most.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-content pt-6">
+                                <div class="text-center">
+                                    <span style="font-size: 3rem;">🔒</span>
+                                    <h3 class="text-lg font-semibold mt-4 mb-2">Privacy First</h3>
+                                    <p class="text-sm text-muted-foreground">
+                                        Your health data is encrypted, secure, and never shared without 
+                                        your explicit consent. HIPAA compliant by design.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Team Section -->
+                <section class="mb-16">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold mb-4">Meet Our Team</h2>
+                        <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                            A passionate group of healthcare professionals, data scientists, and developers 
+                            united by a common goal: improving heart health outcomes globally.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content py-12">
+                            <div class="text-center">
+                                <span style="font-size: 4rem;">👩‍⚕️</span>
+                                <h3 class="text-xl font-semibold mt-4 mb-2">Christine Mirimba</h3>
+                                <p class="text-muted-foreground mb-4">Founder & Lead Developer</p>
+                                <p class="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                                    With a passion for healthcare technology and AI innovation, Christine founded 
+                                    HeartCareAI to democratize access to cardiovascular health assessment. Her expertise 
+                                    in software development and healthcare analytics drives our mission forward.
+                                </p>
+                                <div class="flex justify-center space-x-4 mt-6">
+                                    <a href="https://www.linkedin.com/in/christine-mirimba-51202a26b/" target="_blank" 
+                                       class="text-muted-foreground hover-text-primary transition-colors">
+                                        <span style="font-size: 1.5rem;">💼</span>
+                                    </a>
+                                    <a href="https://x.com/Tinnah_Mirimba?t=nZPhrf1oB28G1s6LyyrssA&s=09" target="_blank" 
+                                       class="text-muted-foreground hover-text-primary transition-colors">
+                                        <span style="font-size: 1.5rem;">🐦</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Impact Section -->
+                <section>
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-8">Our Impact</h2>
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-primary mb-2">50,000+</div>
+                                <p class="text-muted-foreground">Assessments Completed</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-primary mb-2">98%</div>
+                                <p class="text-muted-foreground">Accuracy Rate</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-primary mb-2">24/7</div>
+                                <p class="text-muted-foreground">Availability</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
+    
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
-    <section class="mission-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Mission</h2>
-                <p>We're on a mission to make advanced cardiovascular risk assessment accessible to everyone, everywhere.</p>
-            </div>
-            <div class="mission-content">
-                <p>HeartCareAI combines cutting-edge artificial intelligence with decades of medical research to provide accurate, personalized cardiovascular risk assessments. Our platform empowers individuals to take control of their heart health through data-driven insights and actionable recommendations.</p>
-                <p>We believe that everyone deserves access to advanced healthcare technology, and we're committed to breaking down barriers to preventive cardiovascular care.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">98%+</div>
-                    <div class="stat-label">Prediction Accuracy</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">100K+</div>
-                    <div class="stat-label">Assessments Completed</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Countries Served</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Availability</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="values-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Values</h2>
-            </div>
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon">🎯</div>
-                    <h3>Accuracy</h3>
-                    <p>We leverage advanced machine learning algorithms validated against extensive medical datasets to ensure the highest accuracy in risk prediction.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">🔒</div>
-                    <h3>Privacy</h3>
-                    <p>Your health data is encrypted and protected with HIPAA-compliant security measures. We never share your information without explicit consent.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">🌍</div>
-                    <h3>Accessibility</h3>
-                    <p>Healthcare should be accessible to all. We're committed to making advanced cardiovascular assessment available regardless of location or resources.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">💡</div>
-                    <h3>Innovation</h3>
-                    <p>We continuously improve our AI models with the latest research and technology to provide cutting-edge cardiovascular risk assessment.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="team-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Team</h2>
-                <p>Led by experts in AI, cardiology, and healthcare technology</p>
-            </div>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-avatar">👨‍⚕️</div>
-                    <h3>Dr. Sarah Johnson</h3>
-                    <p class="member-role">Chief Medical Officer</p>
-                    <p class="member-bio">Board-certified cardiologist with 15+ years of experience in preventive cardiology.</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-avatar">👨‍💻</div>
-                    <h3>Michael Chen</h3>
-                    <p class="member-role">Head of AI Research</p>
-                    <p class="member-bio">PhD in Machine Learning, former research scientist at leading tech companies.</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-avatar">👩‍💼</div>
-                    <h3>Emily Rodriguez</h3>
-                    <p class="member-role">CEO & Co-Founder</p>
-                    <p class="member-bio">Healthcare entrepreneur passionate about democratizing access to advanced medical technology.</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-avatar">👨‍🔬</div>
-                    <h3>Dr. James Williams</h3>
-                    <p class="member-role">Director of Clinical Research</p>
-                    <p class="member-bio">Epidemiologist specializing in cardiovascular disease prevention and population health.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready to Take Control of Your Heart Health?</h2>
-            <p>Join thousands of users who trust HeartCareAI for their cardiovascular wellness</p>
-            <div class="cta-buttons">
-                <a href="assessment.html" class="btn btn-primary btn-lg">Start Assessment</a>
-                <a href="contact.html" class="btn btn-secondary btn-lg">Contact Us</a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="logo">
-                        <span class="heart-icon">💚</span>
-                        <span class="logo-text">Heart<span class="logo-highlight">CareAI</span></span>
-                    </div>
-                    <p>Advanced heart health prediction powered by AI.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="how-it-works.html">How It Works</a></li>
-                        <li><a href="assessment.html">Assessment</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 HeartCareAI. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/theme.js"></script>
+    <!-- Scripts -->
     <script src="js/main.js"></script>
-    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        // Load header and footer
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load header
+            fetch('includes/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-placeholder').innerHTML = html;
+                    setTimeout(() => {
+                        if (window.updateAuthUI) {
+                            window.updateAuthUI();
+                        }
+                    }, 100);
+                })
+                .catch(error => console.error('Error loading header:', error));
+
+            // Load footer
+            fetch('includes/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-placeholder').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading footer:', error));
+        });
+    </script>
 </body>
 </html>

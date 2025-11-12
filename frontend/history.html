@@ -1,92 +1,195 @@
-<!DOCTYPE html>
+rontend/history.html</path>
+<content"><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assessment History - HeartCareAI</title>
+    <title>History - HeartCareAI</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/history.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💚</text></svg>">
 </head>
-<body>
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <span class="heart-icon">💚</span>
-                <span class="logo-text">Heart<span class="logo-highlight">CareAI</span></span>
-            </a>
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="nav-menu" id="navMenu">
-                <a href="how-it-works.html" class="nav-link">How It Works</a>
-                <a href="about.html" class="nav-link">About</a>
-                <div class="nav-actions"></div>
-            </div>
-        </div>
-    </nav>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
-    <div class="history-container">
-        <div class="container">
-            <div class="history-header">
-                <h1>Assessment History</h1>
-                <p>Track your cardiovascular health journey over time</p>
-            </div>
-
-            <div class="history-controls">
-                <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Search assessments..." class="search-input">
+    <div class="flex-1 bg-gradient-to-b from-muted-30 to-background">
+        <div class="container py-12">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-2">Assessment History</h1>
+                    <p class="text-muted-foreground">
+                        Track your cardiovascular health assessments over time
+                    </p>
                 </div>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="low">Low Risk</button>
-                    <button class="filter-btn" data-filter="medium">Medium Risk</button>
-                    <button class="filter-btn" data-filter="high">High Risk</button>
+
+                <div id="assessments-container" class="space-y-4">
+                    <!-- Assessments will be loaded here -->
                 </div>
-            </div>
 
-            <div id="loadingState" class="loading-state">
-                <div class="spinner"></div>
-                <p>Loading your assessment history...</p>
-            </div>
-
-            <div id="historyContent" style="display: none;">
-                <div class="history-stats">
-                    <div class="stat-card">
-                        <div class="stat-value" id="totalAssessments">0</div>
-                        <div class="stat-label">Total Assessments</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="latestRisk">-</div>
-                        <div class="stat-label">Latest Risk Level</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="riskTrend">-</div>
-                        <div class="stat-label">Trend</div>
+                <!-- Loading State -->
+                <div id="loading-state" class="card">
+                    <div class="card-content py-12 text-center">
+                        <div class="flex justify-center items-center">
+                            <div class="loading-spinner" style="border: 2px solid hsl(var(--muted)); border-top: 2px solid hsl(var(--primary)); width: 3rem; height: 3rem;"></div>
+                        </div>
+                        <p class="text-sm text-muted-foreground mt-4">
+                            Loading your assessment history...
+                        </p>
                     </div>
                 </div>
 
-                <div class="history-timeline" id="historyTimeline">
-                    <!-- Timeline items will be inserted here -->
-                </div>
-
-                <div id="emptyState" class="empty-state" style="display: none;">
-                    <div class="empty-icon">📊</div>
-                    <h3>No Assessments Yet</h3>
-                    <p>Start your heart health journey by completing your first assessment</p>
-                    <a href="assessment.html" class="btn btn-primary">Take Assessment</a>
+                <!-- Empty State -->
+                <div id="empty-state" class="card border-dashed" style="display: none;">
+                    <div class="card-content py-12 text-center">
+                        <span style="font-size: 3rem;">⚠️</span>
+                        <p class="text-lg font-medium text-muted-foreground mb-2">
+                            No assessment history yet
+                        </p>
+                        <p class="text-sm text-muted-foreground">
+                            Complete an assessment to see your trends!
+                        </p>
+                        <button onclick="window.location.href='assessment.html'" class="btn btn-primary btn-default mt-4">
+                            Start Assessment
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
-    <script src="js/theme.js"></script>
+    <!-- Scripts -->
     <script src="js/main.js"></script>
     <script src="js/api.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/history.js"></script>
+    <script>
+        let assessments = [];
+
+        // Load header and footer
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (!window.authManager || !window.authManager.requireAuth()) {
+                return;
+            }
+
+            // Load header
+            fetch('includes/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-placeholder').innerHTML = html;
+                    setTimeout(() => {
+                        if (window.updateAuthUI) {
+                            window.updateAuthUI();
+                        }
+                    }, 100);
+                })
+                .catch(error => console.error('Error loading header:', error));
+
+            // Load footer
+            fetch('includes/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-placeholder').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading footer:', error));
+
+            // Load assessments
+            loadAssessments();
+        });
+
+        async function loadAssessments() {
+            try {
+                const data = await window.api.getAssessmentHistory();
+                assessments = data;
+                renderAssessments();
+            } catch (error) {
+                console.error('Error loading assessments:', error);
+                window.toastManager.error('Failed to load assessment history');
+            } finally {
+                document.getElementById('loading-state').style.display = 'none';
+            }
+        }
+
+        function renderAssessments() {
+            const container = document.getElementById('assessments-container');
+            const emptyState = document.getElementById('empty-state');
+            
+            if (assessments.length === 0) {
+                container.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            assessments.forEach((assessment, index) => {
+                const trend = index < assessments.length - 1 
+                    ? (assessment.risk_score < assessments[index + 1].risk_score ? 'down' : 'up')
+                    : 'up';
+                
+                const card = createAssessmentCard(assessment, trend);
+                container.appendChild(card);
+            });
+        }
+
+        function createAssessmentCard(assessment, trend) {
+            const card = document.createElement('div');
+            card.className = 'card hover-border-primary-50 transition-colors';
+            
+            const riskColor = window.getRiskColor(assessment.risk_level);
+            const trendIcon = trend === 'down' ? '📉' : '📈';
+            const trendColor = trend === 'down' ? 'text-green-500' : 'text-yellow-500';
+            const trendText = trend === 'down' ? 'Improving' : 'Monitor closely';
+            
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="flex items-center justify-between">
+                        <div class="card-title text-lg flex items-center gap-2">
+                            <span style="font-size: 1.25rem;">📅</span>
+                            ${window.utils.formatDate(assessment.created_at)}
+                        </div>
+                        <span class="badge px-3 py-1 rounded-full text-sm ${riskColor}">
+                            ${assessment.risk_level} Risk
+                        </span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="space-y-1">
+                            <p class="text-sm text-muted-foreground">Risk Score</p>
+                            <p class="text-2xl font-bold">${assessment.risk_score}%</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="${trendColor}" style="font-size: 1.25rem;">${trendIcon}</span>
+                            <span class="text-sm text-muted-foreground">
+                                ${trendText}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <button onclick="toggleRecommendations(${assessment.id})" class="btn btn-outline btn-sm w-full">
+                            <span style="font-size: 1rem;">✨</span>
+                            View AI Recommendations
+                        </button>
+                        <div id="recommendations-${assessment.id}" class="mt-4 p-4 rounded-lg" style="background-color: hsla(var(--muted), 0.3); display: none;">
+                            <div class="markdown-content">${window.utils.parseMarkdown(assessment.recommendations)}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        function toggleRecommendations(assessmentId) {
+            const recommendationsDiv = document.getElementById(`recommendations-${assessmentId}`);
+            if (recommendationsDiv.style.display === 'none') {
+                recommendationsDiv.style.display = 'block';
+            } else {
+                recommendationsDiv.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>

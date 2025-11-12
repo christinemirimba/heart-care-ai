@@ -1,188 +1,220 @@
-<!DOCTYPE html>
+rontend/index.html</path>
+<content"><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HeartCareAI - Advanced Heart Health Prediction Powered by AI</title>
-    <meta name="description" content="Get personalized cardiovascular risk assessments in seconds. Our AI analyzes your health data to provide accurate predictions and actionable insights.">
+    <title>HeartCareAI - Advanced Heart Health Prediction</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💚</text></svg>">
+    <meta name="description" content="Get personalized cardiovascular risk assessments in seconds with AI-powered heart health analysis">
 </head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <span class="heart-icon">💚</span>
-                <span class="logo-text">Heart<span class="logo-highlight">CareAI</span></span>
-            </div>
-            
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <div class="nav-menu" id="navMenu">
-                <a href="how-it-works.html" class="nav-link">How It Works</a>
-                <a href="about.html" class="nav-link">About</a>
-                <div class="nav-dropdown">
-                    <button class="nav-link dropdown-toggle">Resources ▾</button>
-                    <div class="dropdown-menu">
-                        <a href="contact.html">Contact</a>
-                        <a href="#faq">FAQ</a>
-                        <a href="#blog">Blog</a>
-                    </div>
-                </div>
-                <div class="nav-actions">
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                        <span class="theme-icon">🌙</span>
-                    </button>
-                    <a href="login.html" class="btn btn-ghost">Log In</a>
-                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-background"></div>
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">Advanced Heart Health Prediction Powered by AI</h1>
-                <p class="hero-subtitle">Get personalized cardiovascular risk assessments in seconds. Our AI analyzes your health data to provide accurate predictions and actionable insights for a healthier heart.</p>
-                <div class="hero-buttons">
-                    <a href="assessment.html" class="btn btn-primary btn-lg">Start Your Assessment</a>
-                    <a href="how-it-works.html" class="btn btn-secondary btn-lg">Learn More</a>
+    <section class="relative overflow-hidden">
+        <div class="absolute inset-0">
+            <div style="background: linear-gradient(135deg, hsl(180, 45%, 12% / 0.95) 0%, hsl(180, 35%, 25% / 0.9) 100%);"></div>
+        </div>
+        
+        <div class="relative container py-24 md:py-32">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                    Advanced Heart Health Prediction Powered by AI
+                </h1>
+                <p class="text-xl text-white mb-8 leading-relaxed" style="color: rgba(255, 255, 255, 0.9);">
+                    Get personalized cardiovascular risk assessments in seconds. Our AI analyzes your health data to provide accurate predictions and actionable insights for a healthier heart.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="window.location.href='signup.html'" class="btn btn-lg btn-primary text-lg px-8 shadow-lg hover-shadow-xl transition-all">
+                        Start Your Assessment
+                    </button>
+                    <button onclick="window.location.href='how-it-works.html'" class="btn btn-lg btn-outline text-lg px-8" 
+                            style="background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-color: rgba(255, 255, 255, 0.3); color: white;"
+                            onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.2)'"
+                            onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.1)'">
+                        Learn More
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features">
+    <section class="py-20" style="background-color: hsla(var(--muted), 0.3);">
         <div class="container">
-            <div class="section-header">
-                <h2>Why Choose <span class="highlight">HeartCareAI?</span></h2>
-                <p>Advanced technology makes comprehensive care for cardiovascular health monitoring.</p>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Why Choose <span class="text-primary">HeartCareAI?</span>
+                </h2>
+                <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Advanced technology makes comprehensive care for cardiovascular health monitoring.
+                </p>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>AI-Powered</h3>
-                    <p>Advanced ML algorithms with 98%+ accuracy for comprehensive cardiovascular risk analysis.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature cards -->
+                <div class="card border-border-50 hover-border-primary-50 transition-all duration-300 hover-shadow-lg">
+                    <div class="card-content pt-6">
+                        <div class="flex flex-col items-center text-center space-y-4">
+                            <div class="p-3 rounded-full" style="background-color: hsla(var(--primary), 0.1);">
+                                <span style="font-size: 2rem;">🧠</span>
+                            </div>
+                            <h3 class="font-semibold text-lg">AI-Powered</h3>
+                            <p class="text-sm text-muted-foreground">Advanced ML algorithms with 98%+ accuracy for comprehensive cardiovascular risk analysis.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Real-Time</h3>
-                    <p>Instant risk assessment and personalized recommendations in under 3 seconds.</p>
+
+                <div class="card border-border-50 hover-border-primary-50 transition-all duration-300 hover-shadow-lg">
+                    <div class="card-content pt-6">
+                        <div class="flex flex-col items-center text-center space-y-4">
+                            <div class="p-3 rounded-full" style="background-color: hsla(var(--primary), 0.1);">
+                                <span style="font-size: 2rem;">⚡</span>
+                            </div>
+                            <h3 class="font-semibold text-lg">Real-Time</h3>
+                            <p class="text-sm text-muted-foreground">Instant risk assessment and personalized recommendations in under 3 seconds.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Secure</h3>
-                    <p>HIPAA-compliant with end-to-end encryption ensuring complete data privacy and security.</p>
+
+                <div class="card border-border-50 hover-border-primary-50 transition-all duration-300 hover-shadow-lg">
+                    <div class="card-content pt-6">
+                        <div class="flex flex-col items-center text-center space-y-4">
+                            <div class="p-3 rounded-full" style="background-color: hsla(var(--primary), 0.1);">
+                                <span style="font-size: 2rem;">🔒</span>
+                            </div>
+                            <h3 class="font-semibold text-lg">Secure</h3>
+                            <p class="text-sm text-muted-foreground">HIPAA-compliant with end-to-end encryption ensuring complete data privacy and security.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">👤</div>
-                    <h3>Patient-Centered</h3>
-                    <p>Personalized insights tailored to individual health profiles and medical history.</p>
+
+                <div class="card border-border-50 hover-border-primary-50 transition-all duration-300 hover-shadow-lg">
+                    <div class="card-content pt-6">
+                        <div class="flex flex-col items-center text-center space-y-4">
+                            <div class="p-3 rounded-full" style="background-color: hsla(var(--primary), 0.1);">
+                                <span style="font-size: 2rem;">👥</span>
+                            </div>
+                            <h3 class="font-semibold text-lg">Patient-Centered</h3>
+                            <p class="text-sm text-muted-foreground">Personalized insights tailored to individual health profiles and medical history.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Predictive Analytics</h3>
-                    <p>Forecast potential cardiovascular risks with predictive modeling.</p>
+
+                <div class="card border-border-50 hover-border-primary-50 transition-all duration-300 hover-shadow-lg">
+                    <div class="card-content pt-6">
+                        <div class="flex flex-col items-center text-center space-y-4">
+                            <div class="p-3 rounded-full" style="background-color: hsla(var(--primary), 0.1);">
+                                <span style="font-size: 2rem;">📊</span>
+                            </div>
+                            <h3 class="font-semibold text-lg">Predictive Analytics</h3>
+                            <p class="text-sm text-muted-foreground">Forecast potential cardiovascular risks with predictive modeling.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🕐</div>
-                    <h3>24/7 Access</h3>
-                    <p>Round-the-clock availability for real-time assessments and health monitoring.</p>
+
+                <div class="card border-border-50 hover-border-primary-50 transition-all duration-300 hover-shadow-lg">
+                    <div class="card-content pt-6">
+                        <div class="flex flex-col items-center text-center space-y-4">
+                            <div class="p-3 rounded-full" style="background-color: hsla(var(--primary), 0.1);">
+                                <span style="font-size: 2rem;">🕒</span>
+                            </div>
+                            <h3 class="font-semibold text-lg">24/7 Access</h3>
+                            <p class="text-sm text-muted-foreground">Round-the-clock availability for real-time assessments and health monitoring.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- How It Works Section -->
-    <section class="how-it-works">
+    <section class="py-20">
         <div class="container">
-            <div class="section-header">
-                <h2>How It Works</h2>
-                <p>Our simple 4-step process is a hassle-free, more informed you.</p>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    How It <span class="text-primary">Works</span>
+                </h2>
+                <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Our simple 4-step process is a hassle-free, more informed you.
+                </p>
             </div>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">01</div>
-                    <h3>Input Your Health Data</h3>
-                    <p>Provide your health metrics including age, blood pressure, cholesterol levels, and lifestyle factors through our secure form.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="flex gap-6">
+                    <div class="text-7xl font-bold leading-none" style="color: hsla(var(--primary), 0.1);">01</div>
+                    <div class="flex-1 pt-2">
+                        <h3 class="text-xl font-semibold mb-2">Input Your Health Data</h3>
+                        <p class="text-muted-foreground">Provide your health metrics including age, blood pressure, cholesterol levels, and lifestyle factors through our secure form.</p>
+                    </div>
                 </div>
-                <div class="step">
-                    <div class="step-number">02</div>
-                    <h3>AI Analysis</h3>
-                    <p>Our advanced machine learning algorithms analyze your data against thousands of medical records to identify risk patterns.</p>
+
+                <div class="flex gap-6">
+                    <div class="text-7xl font-bold leading-none" style="color: hsla(var(--primary), 0.1);">02</div>
+                    <div class="flex-1 pt-2">
+                        <h3 class="text-xl font-semibold mb-2">AI Analysis</h3>
+                        <p class="text-muted-foreground">Our advanced machine learning algorithms analyze your data against thousands of medical records to identify risk patterns.</p>
+                    </div>
                 </div>
-                <div class="step">
-                    <div class="step-number">03</div>
-                    <h3>Risk Assessment</h3>
-                    <p>Receive a comprehensive cardiovascular risk score with detailed breakdowns of contributing factors and risk levels.</p>
+
+                <div class="flex gap-6">
+                    <div class="text-7xl font-bold leading-none" style="color: hsla(var(--primary), 0.1);">03</div>
+                    <div class="flex-1 pt-2">
+                        <h3 class="text-xl font-semibold mb-2">Risk Assessment</h3>
+                        <p class="text-muted-foreground">Receive a comprehensive cardiovascular risk score with detailed breakdowns of contributing factors and risk levels.</p>
+                    </div>
                 </div>
-                <div class="step">
-                    <div class="step-number">04</div>
-                    <h3>Personalized Recommendations</h3>
-                    <p>Get tailored lifestyle modifications, preventive measures, and follow-up recommendations based on your unique profile.</p>
+
+                <div class="flex gap-6">
+                    <div class="text-7xl font-bold leading-none" style="color: hsla(var(--primary), 0.1);">04</div>
+                    <div class="flex-1 pt-2">
+                        <h3 class="text-xl font-semibold mb-2">Personalized Recommendations</h3>
+                        <p class="text-muted-foreground">Get tailored lifestyle modifications, preventive measures, and follow-up recommendations based on your unique profile.</p>
+                    </div>
                 </div>
             </div>
-            <div class="cta-center">
-                <a href="assessment.html" class="btn btn-primary btn-lg">Start Your Assessment</a>
+
+            <div class="text-center mt-12">
+                <button onclick="window.location.href='signup.html'" class="btn btn-lg btn-primary px-8">
+                    Start Your Assessment
+                </button>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="logo">
-                        <span class="heart-icon">💚</span>
-                        <span class="logo-text">Heart<span class="logo-highlight">CareAI</span></span>
-                    </div>
-                    <p>Advanced heart health prediction powered by AI. Your partner in cardiovascular wellness.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="how-it-works.html">How It Works</a></li>
-                        <li><a href="assessment.html">Assessment</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <ul>
-                        <li><a href="#twitter">Twitter</a></li>
-                        <li><a href="#linkedin">LinkedIn</a></li>
-                        <li><a href="#facebook">Facebook</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 HeartCareAI. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
-    <script src="js/theme.js"></script>
+    <!-- Scripts -->
     <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        // Load header and footer
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load header
+            fetch('includes/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-placeholder').innerHTML = html;
+                    // Initialize auth UI after header is loaded
+                    setTimeout(() => {
+                        if (window.updateAuthUI) {
+                            window.updateAuthUI();
+                        }
+                    }, 100);
+                })
+                .catch(error => console.error('Error loading header:', error));
+
+            // Load footer
+            fetch('includes/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-placeholder').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading footer:', error));
+        });
+    </script>
 </body>
 </html>
