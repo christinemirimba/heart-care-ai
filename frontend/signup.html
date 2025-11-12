@@ -1,84 +1,83 @@
-rontend/signup.html</path>
-<content"><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - HeartCareAI</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
 </head>
 <body class="min-h-screen flex flex-col">
     <!-- Header -->
     <div id="header-placeholder"></div>
     
-    <div class="flex-1 flex items-center justify-center py-12" style="background-color: hsla(var(--muted), 0.3);">
-        <div class="card w-full max-w-md">
-            <div class="card-header space-y-1 text-center">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
                 <div class="flex justify-center mb-4">
                     <div class="p-3 rounded-full" style="background-color: hsla(var(--primary), 0.1);">
                         <span style="font-size: 2rem;">❤️</span>
                     </div>
                 </div>
-                <div class="card-title text-2xl font-bold">Create Account</div>
-                <div class="card-description">
-                    Join HeartCareAI to get your personalized cardiovascular assessment
-                </div>
+                <h1 class="auth-title">Create Account</h1>
+                <p class="auth-subtitle">Join HeartCareAI to get your personalized cardiovascular assessment</p>
             </div>
-            <div class="card-content">
-                <form id="signup-form" class="space-y-4">
-                    <div class="space-y-2">
-                        <label for="username">Username</label>
-                        <input
-                            id="username"
-                            name="username"
-                            type="text"
-                            placeholder="johndoe"
-                            required
-                        />
-                    </div>
-                    <div class="space-y-2">
-                        <label for="email">Email</label>
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            placeholder="you@example.com"
-                            required
-                        />
-                    </div>
-                    <div class="space-y-2">
-                        <label for="password">Password</label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            placeholder="At least 6 characters"
-                            minlength="6"
-                            required
-                        />
-                    </div>
-                    <div class="space-y-2">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            type="password"
-                            placeholder="Confirm your password"
-                            required
-                        />
-                    </div>
-                    <button type="submit" class="btn btn-primary w-full" id="signup-btn">
-                        <span id="signup-btn-text">Create Account</span>
-                        <div id="signup-spinner" class="loading-spinner hidden"></div>
-                    </button>
-                </form>
-
-                <div class="mt-6 text-center text-sm">
-                    <span class="text-muted-foreground">Already have an account? </span>
-                    <a href="login.html" class="text-primary hover-underline font-medium">
-                        Log In
-                    </a>
+            
+            <form id="signup-form" class="auth-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        class="form-input"
+                        placeholder="johndoe"
+                        required
+                    />
                 </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        class="form-input"
+                        placeholder="you@example.com"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        class="form-input"
+                        placeholder="At least 6 characters"
+                        minlength="6"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type="password"
+                        class="form-input"
+                        placeholder="Confirm your password"
+                        required
+                    />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="signup-btn">
+                    <span id="signup-btn-text">Create Account</span>
+                    <div id="signup-spinner" class="loading-spinner hidden"></div>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <span class="text-muted-foreground">Already have an account? </span>
+                <a href="login.html" class="link">Log In</a>
             </div>
         </div>
     </div>
@@ -89,98 +88,6 @@ rontend/signup.html</path>
     <!-- Scripts -->
     <script src="js/main.js"></script>
     <script src="js/api.js"></script>
-    <script>
-        // Load header and footer
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load header
-            fetch('includes/header.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('header-placeholder').innerHTML = html;
-                    setTimeout(() => {
-                        if (window.updateAuthUI) {
-                            window.updateAuthUI();
-                        }
-                    }, 100);
-                })
-                .catch(error => console.error('Error loading header:', error));
-
-            // Load footer
-            fetch('includes/footer.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('footer-placeholder').innerHTML = html;
-                })
-                .catch(error => console.error('Error loading footer:', error));
-
-            // Handle signup form
-            const signupForm = document.getElementById('signup-form');
-            signupForm.addEventListener('submit', handleSignup);
-        });
-
-        async function handleSignup(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const username = formData.get('username');
-            const email = formData.get('email');
-            const password = formData.get('password');
-            const confirmPassword = formData.get('confirmPassword');
-            
-            // Validation
-            if (password !== confirmPassword) {
-                window.toastManager.error('Passwords do not match');
-                return;
-            }
-            
-            if (!window.utils.validateEmail(email)) {
-                window.toastManager.error('Please enter a valid email address');
-                return;
-            }
-            
-            if (!window.utils.validatePassword(password)) {
-                window.toastManager.error('Password must be at least 6 characters long');
-                return;
-            }
-            
-            const signupBtn = document.getElementById('signup-btn');
-            const signupBtnText = document.getElementById('signup-btn-text');
-            const signupSpinner = document.getElementById('signup-spinner');
-            
-            // Show loading state
-            signupBtn.disabled = true;
-            signupBtnText.textContent = 'Creating account...';
-            signupSpinner.classList.remove('hidden');
-            
-            try {
-                await window.api.signup(email, password, username);
-                
-                // Success - redirect to assessment
-                window.toastManager.success('Account created successfully! Welcome to HeartCareAI!');
-                setTimeout(() => {
-                    window.location.href = 'assessment.html';
-                }, 1500);
-                
-            } catch (error) {
-                console.error('Signup error:', error);
-                
-                let errorMessage = 'Failed to create account. Please try again.';
-                if (error.message.toLowerCase().includes('email already')) {
-                    errorMessage = 'Email is already registered. Please use a different email or login.';
-                } else if (error.message.toLowerCase().includes('username')) {
-                    errorMessage = 'Username is already taken. Please choose a different username.';
-                } else {
-                    errorMessage = error.message;
-                }
-                
-                window.toastManager.error(errorMessage);
-            } finally {
-                // Reset button state
-                signupBtn.disabled = false;
-                signupBtnText.textContent = 'Create Account';
-                signupSpinner.classList.add('hidden');
-            }
-        }
-    </script>
+    <script src="js/auth.js"></script>
 </body>
 </html>
