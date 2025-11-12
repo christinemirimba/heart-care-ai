@@ -81,6 +81,10 @@ All colors MUST be HSL.
   margin: 0;
   padding: 0;
   border: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 body {
@@ -90,6 +94,8 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 /* Utility classes */
@@ -357,6 +363,7 @@ header {
   border-bottom: 1px solid hsla(var(--border), 0.4);
   background-color: hsla(var(--background), 0.95);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 header .container {
@@ -901,5 +908,222 @@ footer {
   
   .space-x-4 > * + * {
     margin-left: 0.5rem;
+  }
+}
+
+/* Enhanced Browser Compatibility */
+
+/* Webkit-specific fixes */
+* {
+  -webkit-user-select: none;
+}
+
+/* Allow text selection for specific elements */
+input, textarea, [contenteditable="true"], [data-selectable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Webkit font smoothing fixes */
+body, button, input, textarea, select {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Webkit filter fallback */
+.backdrop-blur {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  filter: blur(0); /* Fallback */
+}
+
+/* Text size adjust */
+body, button, input, textarea, select {
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Viewport compatibility (handled via meta tag in HTML) */
+/* Content: width=device-width, initial-scale=1.0 */
+/* Note: maximum-scale and user-scalable removed for compatibility */
+
+/* Forced colors support */
+@media (forced-colors: active) {
+  .card {
+    forced-color-adjust: none;
+  }
+  
+  .btn {
+    forced-color-adjust: none;
+  }
+  
+  button, input, textarea, select {
+    forced-color-adjust: none;
+  }
+}
+
+/* Content image set fallback (for background images) */
+.icon-check::before {
+  content: '✓';
+  background-image: none;
+}
+
+.icon-x::before {
+  content: '✗';
+  background-image: none;
+}
+
+/* Webkit filter property fallback */
+.filter-grayscale {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
+
+.filter-blur {
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+}
+
+/* Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Safari-specific styles */
+  .safari-only {
+    /* Styles specific to Safari */
+  }
+}
+
+/* Chrome specific fixes */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  /* Chrome-specific styles */
+  .chrome-only {
+    /* Styles specific to Chrome */
+  }
+}
+
+/* Firefox specific fixes */
+@-moz-document url-prefix() {
+  /* Firefox-specific styles */
+  .firefox-only {
+    /* Styles specific to Firefox */
+  }
+}
+
+/* Remove theme-color meta warning (handled in HTML) */
+/* <meta name="theme-color" content="#14B8A6"> */
+
+/* Ensure text remains selectable for accessibility */
+a, p, span, div, label, button, h1, h2, h3, h4, h5, h6 {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Prevent unwanted text selection on interactive elements */
+button, .btn, .nav-link, [role="button"], [data-clickable] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Filter property with fallbacks */
+.filter {
+  filter: none;
+  -webkit-filter: none;
+}
+
+.filter-brightness {
+  filter: brightness(1.2);
+  -webkit-filter: brightness(1.2);
+}
+
+.filter-contrast {
+  filter: contrast(1.1);
+  -webkit-filter: contrast(1.1);
+}
+
+/* Force color adjustment support */
+* {
+  forced-color-adjust: auto;
+}
+
+@media (forced-colors: active) {
+  * {
+    forced-color-adjust: auto;
+  }
+  
+  button, input, select, textarea, .btn, .card, .toast {
+    forced-color-adjust: none;
+  }
+}
+
+/* Content property fixes for compatibility */
+.info-icon::before {
+  content: "ⓘ";
+}
+
+.warning-icon::before {
+  content: "⚠";
+}
+
+.success-icon::before {
+  content: "✓";
+}
+
+.error-icon::before {
+  content: "✗";
+}
+
+/* Additional accessibility improvements */
+[aria-hidden="true"] {
+  display: none;
+}
+
+/* Improved focus management */
+*:focus {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+button:focus, .btn:focus {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid hsl(var(--border));
+  }
+  
+  .btn {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  
+  .card {
+    break-inside: avoid;
   }
 }

@@ -200,6 +200,10 @@ The frontend will be available at: `http://localhost:8080`
 4. **Install Python dependencies:**
    ```bash
    pip install -r requirements.txt
+
+   OR
+   pip install fastapi uvicorn[standard] sqlalchemy alembic passlib[bcrypt] python-jose[cryptography] python-multipart python-dotenv pydantic fastapi-cors
+
    ```
 
 5. **Set up environment variables:**
