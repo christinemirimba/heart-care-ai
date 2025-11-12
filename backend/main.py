@@ -9,7 +9,7 @@ from sqlalchemy.sql import func
 from datetime import datetime, timedelta
 from passlib.context import CryptContext
 from jose import JWTError, jwt
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional, List
 import os
 from dotenv import load_dotenv
@@ -107,8 +107,7 @@ class UserResponse(BaseModel):
     username: str
     created_at: datetime
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class LoginRequest(BaseModel):
     email: EmailStr
@@ -140,8 +139,7 @@ class AssessmentResponse(BaseModel):
     recommendations: str
     created_at: datetime
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class AssessmentListResponse(BaseModel):
     id: int
@@ -151,8 +149,7 @@ class AssessmentListResponse(BaseModel):
     factors: List[str]
     recommendations: str
     
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 # Utility functions
 def create_db_and_tables():
@@ -366,11 +363,6 @@ def generate_recommendations(risk_score: int, risk_level: str, factors: List[str
     return "\n\n".join(recommendations)
 
 # API Routes
-
-@app.on_event("startup")
-async def startup_event():
-    create_db_and_tables()
-    logger.info("Database tables created successfully")
 
 @app.get("/")
 async def root():
