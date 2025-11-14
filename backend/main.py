@@ -199,105 +199,108 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
 
 # Risk prediction logic
 def predict_risk(data: dict) -> dict:
-    """Risk prediction algorithm based on heart disease indicators"""
-    risk_score = 0
+
+    risk = 0.0
     factors = []
-    
-    # Age factor (max 20 points)
-    if data["age"] > 60:
-        risk_score += 20
+
+    # ---- AGE (weight 0.10) ----
+    if data["age"] >= 60:
+        risk += 0.10
         factors.append("Age over 60")
-    elif data["age"] > 50:
-        risk_score += 15
+    elif data["age"] >= 50:
+        risk += 0.07
         factors.append("Age over 50")
-    elif data["age"] > 40:
-        risk_score += 10
-    
-    # Sex factor (max 10 points)
+    elif data["age"] >= 40:
+        risk += 0.04
+
+    # ---- SEX (weight 0.03) ----
     if data["sex"] == "M":
-        risk_score += 10
+        risk += 0.03
         factors.append("Male sex")
-    
-    # Chest pain type (max 20 points)
+
+    # ---- CHEST PAIN TYPE (weight 0.15) ----
     if data["chest_pain_type"] == "ASY":
-        risk_score += 20
+        risk += 0.15
         factors.append("Asymptomatic chest pain")
     elif data["chest_pain_type"] == "ATA":
-        risk_score += 10
+        risk += 0.10
     elif data["chest_pain_type"] == "NAP":
-        risk_score += 5
-    
-    # Blood pressure (max 15 points)
-    if data["resting_bp"] > 140:
-        risk_score += 15
+        risk += 0.05
+
+    # ---- BLOOD PRESSURE (weight 0.08) ----
+    if data["resting_bp"] >= 150:
+        risk += 0.08
         factors.append("High blood pressure")
-    elif data["resting_bp"] > 130:
-        risk_score += 10
+    elif data["resting_bp"] >= 130:
+        risk += 0.05
         factors.append("Elevated blood pressure")
-    
-    # Cholesterol (max 15 points)
-    if data["cholesterol"] > 240:
-        risk_score += 15
+
+    # ---- CHOLESTEROL (weight 0.08) ----
+    if data["cholesterol"] >= 260:
+        risk += 0.08
         factors.append("High cholesterol")
-    elif data["cholesterol"] > 200:
-        risk_score += 10
+    elif data["cholesterol"] >= 200:
+        risk += 0.05
         factors.append("Borderline high cholesterol")
-    
-    # Fasting blood sugar (max 10 points)
+
+    # ---- FASTING BS (weight 0.05) ----
     if data["fasting_bs"] == "1":
-        risk_score += 10
+        risk += 0.05
         factors.append("Elevated fasting blood sugar")
-    
-    # Resting ECG (max 10 points)
+
+    # ---- RESTING ECG (weight 0.05) ----
     if data["resting_ecg"] == "LVH":
-        risk_score += 10
+        risk += 0.05
         factors.append("Left ventricular hypertrophy")
     elif data["resting_ecg"] == "ST":
-        risk_score += 5
-    
-    # Max heart rate (max 10 points)
+        risk += 0.03
+
+    # ---- MAX HEART RATE (weight 0.04) ----
     if data["max_hr"] < 120:
-        risk_score += 10
+        risk += 0.04
         factors.append("Low maximum heart rate")
     elif data["max_hr"] < 140:
-        risk_score += 5
-    
-    # Exercise angina (max 15 points)
+        risk += 0.02
+
+    # ---- EXERCISE ANGINA (weight 0.10) ----
     if data["exercise_angina"] == "Y":
-        risk_score += 15
+        risk += 0.10
         factors.append("Exercise-induced angina")
-    
-    # Oldpeak (max 15 points)
-    if data["oldpeak"] > 2:
-        risk_score += 15
+
+    # ---- OLDPEAK (weight 0.20) ----
+    if data["oldpeak"] >= 2:
+        risk += 0.20
         factors.append("Significant ST depression")
-    elif data["oldpeak"] > 1:
-        risk_score += 10
+    elif data["oldpeak"] >= 1:
+        risk += 0.12
     elif data["oldpeak"] > 0:
-        risk_score += 5
-    
-    # ST slope (max 15 points)
-    if data["st_slope"] == "Flat":
-        risk_score += 15
-        factors.append("Flat ST slope")
-    elif data["st_slope"] == "Down":
-        risk_score += 10
+        risk += 0.05
+
+    # ---- ST SLOPE (weight 0.25) ----
+    if data["st_slope"] == "Down":
+        risk += 0.25
         factors.append("Downsloping ST segment")
-    
-    # Cap at 100
-    risk_score = min(risk_score, 100)
-    
-    # Determine risk level
-    if risk_score < 30:
-        risk_level = "Low"
-    elif risk_score < 60:
-        risk_level = "Moderate"
+    elif data["st_slope"] == "Flat":
+        risk += 0.18
+        factors.append("Flat ST slope")
+
+    # ---- Soft cap: realistic maximum probability ----
+    risk = min(risk, 0.95)
+
+    # ---- Convert to percentage ----
+    score = round(risk * 100, 2)
+
+    # ---- Risk category ----
+    if score < 30:
+        level = "Low"
+    elif score < 60:
+        level = "Moderate"
     else:
-        risk_level = "High"
-    
+        level = "High"
+
     return {
-        "risk_score": risk_score,
-        "risk_level": risk_level,
+        "risk_score": score,
+        "risk_level": level,
         "factors": factors
     }
 
