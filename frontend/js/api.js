@@ -182,107 +182,110 @@ class ApiClient {
 // Create global API client instance
 const api = new ApiClient();
 
-// Risk prediction algorithm (migrated from React)
+// Risk prediction algorithm (matched with backend)
 function predictRisk(data) {
-  let riskScore = 0;
+  let risk = 0.0;
   const factors = [];
 
-  // Age factor (max 20 points)
-  if (data.age > 60) {
-    riskScore += 20;
+  // ---- AGE (weight 0.10) ----
+  if (data.age >= 60) {
+    risk += 0.10;
     factors.push("Age over 60");
-  } else if (data.age > 50) {
-    riskScore += 15;
+  } else if (data.age >= 50) {
+    risk += 0.07;
     factors.push("Age over 50");
-  } else if (data.age > 40) {
-    riskScore += 10;
+  } else if (data.age >= 40) {
+    risk += 0.04;
   }
 
-  // Sex factor (max 10 points)
+  // ---- SEX (weight 0.03) ----
   if (data.sex === "M") {
-    riskScore += 10;
+    risk += 0.03;
     factors.push("Male sex");
   }
 
-  // Chest pain type (max 20 points)
+  // ---- CHEST PAIN TYPE (weight 0.15) ----
   if (data.chestPainType === "ASY") {
-    riskScore += 20;
+    risk += 0.15;
     factors.push("Asymptomatic chest pain");
   } else if (data.chestPainType === "ATA") {
-    riskScore += 10;
+    risk += 0.10;
   } else if (data.chestPainType === "NAP") {
-    riskScore += 5;
+    risk += 0.05;
   }
 
-  // Blood pressure (max 15 points)
-  if (data.restingBP > 140) {
-    riskScore += 15;
+  // ---- BLOOD PRESSURE (weight 0.08) ----
+  if (data.restingBP >= 150) {
+    risk += 0.08;
     factors.push("High blood pressure");
-  } else if (data.restingBP > 130) {
-    riskScore += 10;
+  } else if (data.restingBP >= 130) {
+    risk += 0.05;
     factors.push("Elevated blood pressure");
   }
 
-  // Cholesterol (max 15 points)
-  if (data.cholesterol > 240) {
-    riskScore += 15;
+  // ---- CHOLESTEROL (weight 0.08) ----
+  if (data.cholesterol >= 260) {
+    risk += 0.08;
     factors.push("High cholesterol");
-  } else if (data.cholesterol > 200) {
-    riskScore += 10;
+  } else if (data.cholesterol >= 200) {
+    risk += 0.05;
     factors.push("Borderline high cholesterol");
   }
 
-  // Fasting blood sugar (max 10 points)
+  // ---- FASTING BS (weight 0.05) ----
   if (data.fastingBS === "1") {
-    riskScore += 10;
+    risk += 0.05;
     factors.push("Elevated fasting blood sugar");
   }
 
-  // Resting ECG (max 10 points)
+  // ---- RESTING ECG (weight 0.05) ----
   if (data.restingECG === "LVH") {
-    riskScore += 10;
+    risk += 0.05;
     factors.push("Left ventricular hypertrophy");
   } else if (data.restingECG === "ST") {
-    riskScore += 5;
+    risk += 0.03;
   }
 
-  // Max heart rate (max 10 points)
+  // ---- MAX HEART RATE (weight 0.04) ----
   if (data.maxHR < 120) {
-    riskScore += 10;
+    risk += 0.04;
     factors.push("Low maximum heart rate");
   } else if (data.maxHR < 140) {
-    riskScore += 5;
+    risk += 0.02;
   }
 
-  // Exercise angina (max 15 points)
+  // ---- EXERCISE ANGINA (weight 0.10) ----
   if (data.exerciseAngina === "Y") {
-    riskScore += 15;
+    risk += 0.10;
     factors.push("Exercise-induced angina");
   }
 
-  // Oldpeak (max 15 points)
-  if (data.oldpeak > 2) {
-    riskScore += 15;
+  // ---- OLDPEAK (weight 0.20) ----
+  if (data.oldpeak >= 2) {
+    risk += 0.20;
     factors.push("Significant ST depression");
-  } else if (data.oldpeak > 1) {
-    riskScore += 10;
+  } else if (data.oldpeak >= 1) {
+    risk += 0.12;
   } else if (data.oldpeak > 0) {
-    riskScore += 5;
+    risk += 0.05;
   }
 
-  // ST slope (max 15 points)
-  if (data.stSlope === "Flat") {
-    riskScore += 15;
-    factors.push("Flat ST slope");
-  } else if (data.stSlope === "Down") {
-    riskScore += 10;
+  // ---- ST SLOPE (weight 0.25) ----
+  if (data.stSlope === "Down") {
+    risk += 0.25;
     factors.push("Downsloping ST segment");
+  } else if (data.stSlope === "Flat") {
+    risk += 0.18;
+    factors.push("Flat ST slope");
   }
 
-  // Cap at 100
-  riskScore = Math.min(riskScore, 100);
+  // ---- Soft cap: realistic maximum probability ----
+  risk = Math.min(risk, 0.95);
 
-  // Determine risk level
+  // ---- Convert to percentage ----
+  const riskScore = Math.round(risk * 100);
+
+  // ---- Risk category ----
   let riskLevel;
   if (riskScore < 30) {
     riskLevel = "Low";
