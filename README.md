@@ -1,10 +1,8 @@
 # HeartCareAI - AI-Powered Cardiovascular Risk Assessment Platform
 
-**A complete migration from React + TypeScript + Supabase to HTML/CSS/JS + FastAPI + SQLite**
-
 ## 🚀 Project Overview
 
-HeartCareAI is an advanced cardiovascular risk assessment platform that uses artificial intelligence to provide personalized health insights. This project has been completely restructured from a React/TypeScript frontend with Supabase backend to a modern web stack using plain HTML/CSS/JavaScript frontend with FastAPI (Python) backend and SQLite database.
+HeartCareAI is an advanced cardiovascular risk assessment platform that uses artificial intelligence to provide personalized health insights. 
 
 ## 🏗️ Architecture
 
@@ -33,40 +31,60 @@ HeartCareAI is an advanced cardiovascular risk assessment platform that uses art
 ## 📁 Project Structure
 
 ```
-heartcare-ai/
+heart-care-ai/
 ├── backend/                 # FastAPI Backend
 │   ├── main.py             # Main application
 │   ├── requirements.txt    # Python dependencies
-│   └── .env               # Environment configuration
+│   ├── heartcare.db        # SQLite database (auto-generated)
+│   └── .env                # Environment configuration
 │
-├── frontend/              # Plain HTML/CSS/JS Frontend
-│   ├── index.html         # Home page
-│   ├── login.html         # Authentication
-│   ├── signup.html        # User registration
-│   ├── assessment.html    # AI risk assessment
-│   ├── history.html       # Assessment history
-│   ├── settings.html      # User settings
-│   ├── about.html         # About page
-│   ├── how-it-works.html  # Process explanation
-│   ├── contact.html       # Contact form
-│   ├── faq.html           # Frequently asked questions
-│   ├── privacy.html       # Privacy policy
+├── frontend/               # Plain HTML/CSS/JS Frontend
+│   ├── index.html          # Home page
+│   ├── login.html          # Authentication
+│   ├── signup.html         # User registration
+│   ├── assessment.html     # AI risk assessment
+│   ├── history.html        # Assessment history
+│   ├── settings.html       # User settings
+│   ├── about.html          # About page
+│   ├── how-it-works.html   # Process explanation
+│   ├── contact.html        # Contact form
+│   ├── faq.html            # Frequently asked questions
+│   ├── privacy.html        # Privacy policy
+│   ├── recommendations.html # AI recommendations page
 │   ├── css/
-│   │   ├── styles.css     # Main stylesheet
-│   │   ├── auth.css       # Authentication page styles
-│   │   └── theme.css      # Theme system styles
+│   │   ├── styles.css      # Main stylesheet
+│   │   ├── auth.css        # Authentication page styles
+│   │   ├── assessment.css  # Assessment page styles
+│   │   ├── contact.css     # Contact page styles
+│   │   ├── history.css     # History page styles
+│   │   ├── how-it-works.css # How it works page styles
+│   │   ├── recommendations.css # Recommendations page styles
+│   │   ├── settings.css    # Settings page styles
+│   │   └── theme.css       # Theme system styles
 │   ├── js/
-│   │   ├── main.js        # Core utilities
-│   │   ├── api.js         # API client
-│   │   ├── auth.js        # Authentication logic
-│   │   ├── assessment.js  # Assessment functionality
-│   │   └── theme.js       # Theme management
+│   │   ├── main.js         # Core utilities and theme management
+│   │   ├── api.js          # API client and risk prediction
+│   │   ├── auth.js         # Authentication logic
+│   │   ├── assessment.js   # Assessment form handling
+│   │   ├── history.js      # Assessment history management
+│   │   ├── recommendations.js # AI recommendations display
+│   │   ├── settings.js     # User settings management
+│   │   └── theme.js        # Theme toggle functionality
 │   └── includes/
-│       ├── header.html    # Shared header
-│       └── footer.html    # Shared footer
-└── public/
-    └── data/
-        └── heart.csv      # Heart failure prediction dataset
+│       ├── header.html     # Shared header component
+│       └── footer.html     # Shared footer component
+├── public/
+│   ├── placeholder.svg     # Placeholder image (unused)
+│   ├── robots.txt          # Search engine crawling rules
+│   └── data/
+│       ├── favicon.ico     # Website favicon
+│       └── heart.csv       # Heart failure prediction dataset
+├── .gitignore              # Git ignore rules
+└── README.md               # Project documentation
+```
+
+
+
 ```
 
 ## ✨ Features
@@ -146,8 +164,8 @@ cp .env.example .env
 **Edit the `.env` file with your configuration:**
 ```env
 ENVIRONMENT=development
-SECRET_KEY=your-secret-key-here
-DATABASE_URL=sqlite:///./heartcareai.db
+SECRET_KEY=your-secret-key-here-make-it-long-and-secure
+DATABASE_URL=sqlite:///./heartcare.db
 GEMINI_API_KEY=your-gemini-api-key
 RESEND_API_KEY=your-resend-api-key
 ALLOWED_HOSTS=http://localhost:8080,http://127.0.0.1:8080
@@ -201,8 +219,8 @@ The frontend will be available at: `http://localhost:8080`
    ```bash
    pip install -r requirements.txt
 
-   OR
-   pip install fastapi uvicorn[standard] sqlalchemy alembic passlib[bcrypt] python-jose[cryptography] python-multipart python-dotenv pydantic fastapi-cors
+   OR 
+   install one by one using command line
 
    ```
 
@@ -259,27 +277,7 @@ The frontend will be available at: `http://localhost:8080`
 
 ### Alternative: Serve Everything from Backend
 
-The backend is configured to serve the frontend files directly:
-
-1. **Navigate to the backend directory:**
-   ```bash
-   cd backend
-   ```
-
-2. **Start the backend server:**
-   ```bash
-   python main.py
-   ```
-
-3. **Access the application:**
-   - **Full application**: `http://localhost:8000/`
-   - **API Documentation**: `http://localhost:8000/docs`
-   - **Direct pages**:
-     - `http://localhost:8000/login.html`
-     - `http://localhost:8000/signup.html`
-     - `http://localhost:8000/assessment.html`
-
-This is the recommended approach as it handles CORS automatically and serves all files from one server.
+**Note:** The backend is NOT currently configured to serve frontend files directly. This setup requires additional static file serving configuration in FastAPI. For now, use the separate servers approach described above.
 
 ## 🚀 Quick Start Guide
 
@@ -311,18 +309,14 @@ Open browser to: `http://localhost:8080`
 - `GET /health` - System health status
 
 ### Authentication
-- `POST /api/v1/auth/signup` - User registration
-- `POST /api/v1/auth/login` - User login
-- `GET /api/v1/auth/me` - Get current user info
+- `POST /auth/signup` - User registration
+- `POST /auth/login` - User login
+- `GET /auth/me` - Get current user info
 
 ### Assessments
-- `POST /api/v1/assessments/calculate` - Calculate AI risk assessment
-- `POST /api/v1/assessments/` - Save assessment to database
-- `GET /api/v1/assessments/history` - Get user assessment history
-- `GET /api/v1/assessments/{id}` - Get specific assessment
-
-### Contact
-- `POST /api/v1/contact/` - Send contact form
+- `POST /assessment` - Create and save AI risk assessment
+- `GET /assessment/history` - Get user assessment history
+- `DELETE /assessment/{assessment_id}` - Delete specific assessment
 
 ## 🎨 Design System
 
@@ -422,7 +416,7 @@ Three theme modes available:
 ```env
 ENVIRONMENT=production
 SECRET_KEY=your-production-secret-key
-DATABASE_URL=sqlite:///./heartcareai.db
+DATABASE_URL=sqlite:///./heartcare.db
 GEMINI_API_KEY=your-gemini-api-key
 RESEND_API_KEY=your-resend-api-key
 ALLOWED_HOSTS=https://your-domain.com
@@ -459,7 +453,7 @@ BUSINESS_EMAIL=your-email@example.com
 
 **Database issues:**
 - Check SQLite file permissions
-- Ensure `heartcareai.db` is in the correct location
+- Ensure `heartcare.db` is in the correct location
 - Run database migrations if needed
 
 ### Getting Help
