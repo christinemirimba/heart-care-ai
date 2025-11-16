@@ -2,7 +2,7 @@
 
 ## 🚀 Project Overview
 
-HeartCareAI is an advanced cardiovascular risk assessment platform that uses artificial intelligence to provide personalized health insights. 
+HeartCareAI is an advanced web application that leverages artificial intelligence and machine learning to assess cardiovascular disease risk. The platform provides personalized health recommendations based on individual health parameters and medical data.
 
 ## 🏗️ Architecture
 
@@ -84,9 +84,6 @@ heart-care-ai/
 ```
 
 
-
-```
-
 ## ✨ Features
 
 ### 🔐 Authentication System
@@ -96,7 +93,27 @@ heart-care-ai/
 - Session management
 - Protected routes
 
-### 🏥 AI Risk Assessment
+
+### 🧠 ML Risk Assessment 
+- How It Works
+1. **Data Input**: User enters 11 health parameters:
+   - Age, Sex, Chest Pain Type
+   - Resting Blood Pressure, Cholesterol
+   - Fasting Blood Sugar, Resting ECG
+   - Max Heart Rate, Exercise Angina
+   - Oldpeak (ST Depression), ST Slope
+
+2. **Data Cleaning**: Normalize and validate input data
+
+3. **Risk Prediction**: ML model calculates risk score (0-100%)
+
+4. **Risk Classification**:
+   - **Low Risk**: 0-33%
+   - **Moderate Risk**: 34-66%
+   - **High Risk**: 67-100%
+
+5. **AI Recommendations**: Gemini API generates personalized advice
+
 - Comprehensive health data input form
 - 11 health parameters assessment:
   - Age, Sex
@@ -109,8 +126,6 @@ heart-care-ai/
   - Oldpeak (ST Depression)
   - ST Slope
   - Chest Pain Type
-- Real-time risk calculation
-- AI-powered recommendations
 
 ### 📊 Risk Analysis
 - **Risk Scoring**: 0-100% cardiovascular risk percentage
@@ -124,6 +139,19 @@ heart-care-ai/
 - Dietary guidance
 - Exercise recommendations
 - Medical consultation advice
+
+  
+### Model Training
+The ML model is trained on the UCI Heart Disease dataset containing clinical data from 918 patients with 11 features.
+
+### 📊 Assessment History
+
+Track your cardiovascular health over time:
+- **Historical records**: All past assessments saved
+- **Trend analysis**: Visual indicators for improving/worsening risk
+- **Detailed view**: Access past recommendations
+- **Data persistence**: Stored securely in your profile
+
 
 ### 📱 User Experience
 - **Responsive Design**: Mobile-first approach
