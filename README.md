@@ -78,7 +78,7 @@ heart-care-ai/
 │   ├── robots.txt          # Search engine crawling rules
 │   └── data/
 │       ├── favicon.ico     # Website favicon
-│       └── heart.csv       # Heart failure prediction dataset
+│       └── heart.csv       # Heart failure prediction dataset from kaggle
 ├── .gitignore              # Git ignore rules
 └── README.md               # Project documentation
 ```
