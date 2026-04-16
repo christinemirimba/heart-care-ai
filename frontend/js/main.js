@@ -12,8 +12,8 @@ class ThemeManager {
     // Apply saved theme or system preference
     this.applyTheme();
     
-    // Add theme toggle button to all pages
-    this.createThemeToggle();
+    // Disabled floating toggle to match original UI design (integrated in header)
+    // this.createThemeToggle();
     
     // Listen for system theme changes
     if (window.matchMedia) {

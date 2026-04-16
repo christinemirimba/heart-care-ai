@@ -81,10 +81,6 @@ All colors MUST be HSL.
   margin: 0;
   padding: 0;
   border: 0;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
 body {
@@ -368,9 +364,10 @@ header {
 
 header .container {
   display: flex;
-  height: 4rem;
+  height: 4.5rem;
   align-items: center;
   justify-content: space-between;
+  gap: 2rem;
 }
 
 nav a {
@@ -773,7 +770,12 @@ footer {
 
 /* Hero section specific styles */
 .hero-gradient {
-  background: linear-gradient(135deg, hsl(var(--medical-dark) / 0.95) 0%, hsl(var(--medical-medium) / 0.9) 100%);
+  background: linear-gradient(135deg, 
+    hsl(var(--medical-dark)) 0%, 
+    hsl(var(--medical-medium) / 0.8) 100%
+  );
+  background-size: cover;
+  background-position: center;
 }
 
 .leading-tight {
@@ -913,13 +915,8 @@ footer {
 
 /* Enhanced Browser Compatibility */
 
-/* Webkit-specific fixes */
-* {
-  -webkit-user-select: none;
-}
-
 /* Allow text selection for specific elements */
-input, textarea, [contenteditable="true"], [data-selectable] {
+input, textarea, [contenteditable="true"], [data-selectable], p, h1, h2, h3, h4, span, a {
   -webkit-user-select: text;
   user-select: text;
 }
@@ -973,55 +970,21 @@ body, button, input, textarea, select {
   background-image: none;
 }
 
-/* Webkit filter property fallback */
-.filter-grayscale {
-  filter: grayscale(100%);
-  -webkit-filter: grayscale(100%);
-}
-
-.filter-blur {
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
-}
-
 /* Safari specific fixes */
 @supports (-webkit-touch-callout: none) {
-  /* Safari-specific styles */
-  .safari-only {
-    /* Styles specific to Safari */
-  }
 }
 
 /* Chrome specific fixes */
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
-  /* Chrome-specific styles */
-  .chrome-only {
-    /* Styles specific to Chrome */
-  }
 }
 
 /* Firefox specific fixes */
 @-moz-document url-prefix() {
-  /* Firefox-specific styles */
-  .firefox-only {
-    /* Styles specific to Firefox */
-  }
 }
 
 /* Remove theme-color meta warning (handled in HTML) */
 /* <meta name="theme-color" content="#14B8A6"> */
 
-/* Ensure text remains selectable for accessibility */
-a, p, span, div, label, button, h1, h2, h3, h4, h5, h6 {
-  -webkit-user-select: text;
-  user-select: text;
-}
-
-/* Prevent unwanted text selection on interactive elements */
-button, .btn, .nav-link, [role="button"], [data-clickable] {
-  -webkit-user-select: none;
-  user-select: none;
-}
 
 /* Filter property with fallbacks */
 .filter {
