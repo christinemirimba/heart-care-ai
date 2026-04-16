@@ -1,0 +1,9 @@
+{
+  "buildCommand": "",
+  "devCommand": "",
+  "installCommand": "",
+  "outputDirectory": "frontend",
+  "framework": null,
+  "regions": ["iad1"]
+}
+
